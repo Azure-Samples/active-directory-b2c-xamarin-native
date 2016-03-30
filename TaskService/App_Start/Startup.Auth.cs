@@ -29,10 +29,6 @@ namespace TaskService
                 // This is where you specify that your API only accepts tokens from its own clients
                 ValidAudience = clientId,
             };
-            app.Use(async (Context, next) =>
-            {
-                await next.Invoke();
-            });
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
             {   
                 // This SecurityTokenProvider fetches the Azure AD B2C metadata & signing keys from the OpenIDConnect metadata endpoint

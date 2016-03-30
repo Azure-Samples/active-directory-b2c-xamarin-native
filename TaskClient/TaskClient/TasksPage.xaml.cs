@@ -57,7 +57,12 @@ namespace TaskClient
                     App.Tasks.Clear();
                     foreach (var item in tasks.Children())
                     {
-                        App.Tasks.Add(item.ToString());
+                        string taskValue = string.Empty;
+                        if (item["task"]!=null)
+                        {
+                            string taskText = item["task"].ToString();
+                            App.Tasks.Add(taskText);
+                        }
                     }
                 }
             }
