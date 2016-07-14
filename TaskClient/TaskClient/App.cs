@@ -17,14 +17,14 @@ namespace TaskClient
         public static PublicClientApplication PCApplication { get; set;  }
 
         // app coordinates
-        public static string ClientID = "2e138726-db09-4ffd-bf9a-4385021b094c";
+		public static string ClientID = "90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6";
         public static string[] Scopes = { ClientID };
         
         
-        public static string SignUpSignInpolicy = "B2C_1_B2C_Signup_Signin_Policy";        
-        //public static string redirectURI = "urn:ietf:wg:oauth:2.0:oob";
-        public static string Authority = "https://login.microsoftonline.com/vibrob2c.onmicrosoft.com/";
-        public static string APIbaseURL = "https://vibrotaskservice.azurewebsites.net";
+		public static string SignUpSignInpolicy = "b2c_1_susi";        
+        public static string ResetPasswordpolicy = "b2c_1_reset";        
+        public static string Authority = "https://login.microsoftonline.com/fabrikamb2c.onmicrosoft.com/";
+        public static string APIbaseURL = "https://aadb2cplayground.azurewebsites.net";
 
         public App()
         {
