@@ -3,10 +3,10 @@ services: active-directory
 platforms: dotnet, xamarin
 author: vibronet
 ---
-# Integrate Microsoft identity and the Microsoft Graph into a Xamarin forms app using MSAL
-This is a simple Xamarin Forms app showcasing how to use MSAL to authenticate users via Azure Active Directory B2C, and access an ASP.NET Web API with the resulting token.
+# Integrate Azure AD B2C into a Xamarin forms app using MSAL
+This is a simple Xamarin Forms app showcasing how to use MSAL to authenticate users via Azure Active Directory B2C, and access an ASP.NET Web API with the resulting token.  For more information on Azure B2C, see [the Azure AD B2C documentation homepage](https://azure.microsoft.com/en-us/documentation/services/active-directory-b2c/).
 
-For more information on Azure B2C, see [the Azure AD B2C documentation homepage](https://azure.microsoft.com/en-us/documentation/services/active-directory-b2c/).
+> Please note this sample is known to have frequent issues using Social IDPs.  Please check the issues on Github for more detail.  To guarantee this sample runs correctly, we recommend using local accounts.
 
 ## How To Run This Sample
 
