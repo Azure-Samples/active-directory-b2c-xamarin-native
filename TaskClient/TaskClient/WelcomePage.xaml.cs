@@ -35,6 +35,23 @@ namespace TaskClient
         }
 
 
+		async void OnForgotPassword()
+		{
+			try
+			{
+				AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.ResetPasswordpolicy);
+				Navigation.PushAsync(new TasksPage());
+			}
+			catch (MsalException ee)
+			{
+				if (ee.ErrorCode != "authentication_canceled") 
+				{
+					DisplayAlert ("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+				}
+			}
+		}
+
+
         async void OnSignUpSignIn(object sender, EventArgs e)
         {
             try
@@ -42,9 +59,17 @@ namespace TaskClient
                 AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.SignUpSignInpolicy);
                 Navigation.PushAsync(new TasksPage());
             }
-            catch (Exception ee)
+            catch (MsalException ee)
             {
-                DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+				if (ee.Message != null && ee.Message.Contains ("AADB2C90118")) 
+				{
+					OnForgotPassword ();
+				}
+
+				if (ee.ErrorCode != "authentication_canceled") 
+				{
+					DisplayAlert ("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+				}
             }
         }
     }

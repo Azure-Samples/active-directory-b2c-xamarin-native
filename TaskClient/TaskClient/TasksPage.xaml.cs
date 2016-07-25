@@ -58,9 +58,9 @@ namespace TaskClient
                     foreach (var item in tasks.Children())
                     {
                         string taskValue = string.Empty;
-                        if (item["task"]!=null)
+                        if (item["Text"]!=null)
                         {
-                            string taskText = item["task"].ToString();
+                            string taskText = item["Text"].ToString();
                             App.Tasks.Add(taskText);
                         }
                     }
@@ -84,7 +84,7 @@ namespace TaskClient
             {
                 AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
 
-                HttpContent content = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("task", txtTask.Text) });
+                HttpContent content = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("Text", txtTask.Text) });
                 HttpClient client = new HttpClient();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, App.APIbaseURL + "/api/tasks");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ar.Token);
