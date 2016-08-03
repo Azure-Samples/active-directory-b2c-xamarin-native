@@ -14,9 +14,6 @@ namespace TaskClient
 {
     public partial class TasksPage : ContentPage
     {
-        // TODO - add PageRenderers on iOS, Android
-        public IPlatformParameters platformParameters { get; set; }
-
         public TasksPage()
         {
             InitializeComponent();            
@@ -24,8 +21,8 @@ namespace TaskClient
 
         protected override async void OnAppearing()
         {
-            App.PCApplication.PlatformParameters = platformParameters;
             base.OnAppearing();
+
             try
             {
                 AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);

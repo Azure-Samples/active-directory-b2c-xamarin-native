@@ -1,5 +1,4 @@
 ﻿<Properties StartupItem="TaskClient/TaskClient.iOS/TaskClient.iOS.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone6s.9.3" />
   <MonoDevelop.Ide.Workbench ActiveDocument="TaskClient/TaskClient/WelcomePage.xaml.cs">
     <Files>
       <File FileName="TaskClient/TaskClient/TasksPage.xaml.cs" Line="36" Column="1" />
@@ -26,8 +25,9 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TaskClient.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.ItemProperties.TaskClient.Droid PreferredExecutionTarget="Android.Nexus_6P_API_23" />
 </Properties>

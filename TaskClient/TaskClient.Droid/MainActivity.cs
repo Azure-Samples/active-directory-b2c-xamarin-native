@@ -20,7 +20,11 @@ namespace TaskClient.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
+
+			// Set the PlatformParameters for Android.
+			App.PCApplication.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
         }
+
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
