@@ -11,25 +11,21 @@ namespace TaskClient
 {
     public partial class WelcomePage : ContentPage
     {
-        // TODO - add PageRenderers on iOS, Android
-        public IPlatformParameters platformParameters { get; set; }
-
-
         public WelcomePage()
         {
             InitializeComponent();           
         }
         protected override async void OnAppearing()
         {
-            App.PCApplication.PlatformParameters = platformParameters;
             // let's see if we have a user in our belly already
             try
-            {
+			{
                 AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
                 Navigation.PushAsync(new TasksPage());
             }
-            catch
+			catch (Exception ex)
             {
+				System.Diagnostics.Debug.WriteLine(ex.Message);
                 // doesn't matter, we go in interactive more
             }
         }

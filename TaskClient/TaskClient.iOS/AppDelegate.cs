@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Identity.Client;
 using UIKit;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace TaskClient.iOS
 {
@@ -25,7 +29,12 @@ namespace TaskClient.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
-            return base.FinishedLaunching(app, options);
+			var result = base.FinishedLaunching(app, options);
+
+			var platformParameters = UIApplication.SharedApplication.KeyWindow.RootViewController;
+			App.PCApplication.PlatformParameters = new PlatformParameters(platformParameters);
+
+			return result;
         }
     }
 }
