@@ -6,8 +6,7 @@ author: vibronet
 # Integrate Azure AD B2C into a Xamarin forms app using MSAL
 
 > [!NOTE]
-> This sample uses embedded web-views to do all interactive sign-in actions. It is important to note Google [has announced](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html) that they will end support for embedded web-views on April 20, 2017.  We are taking steps to prepare for this change, and will publish new code samples and recommendations soon.  At that point, any app that supports Google authentication will be required to switch to using the device browser (also called the system browser) which will require updating to the latest version of MSAL.  
-> 
+> This sample uses embedded web-views to do all interactive sign-in actions. It is important to note Google [has announced](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html) that they will end support for embedded web-views on April 20, 2017. If you need to use Google as an identity provider in AzureAD B2C in an iOS or Android application built using Xamarin + MSAL please contact [Azure Support](http://azure.microsoft.com/en-us/support/options/) and we'll help you out.
 >
 
 This is a simple Xamarin Forms app showcasing how to use MSAL to authenticate users via Azure Active Directory B2C, and access an ASP.NET Web API with the resulting token.  For more information on Azure B2C, see [the Azure AD B2C documentation homepage](https://azure.microsoft.com/en-us/documentation/services/active-directory-b2c/).
