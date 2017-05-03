@@ -52,18 +52,18 @@ PENDING
 ### [OPTIONAL] Step 5:  Configure the Visual Studio project with your app coordinates
 
 1. Open the solution in Visual Studio 2015.
-2. Open the `UserDetailsClient\App.cs` file.
-3. Find the assignment for `public static string ClientID` and replace the value with the Application ID from Step 2.
-4. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
-4. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
+1. Open the `UserDetailsClient\App.cs` file.
+1. Find the assignment for `public static string ClientID` and replace the value with the Application ID from Step 2.
+1. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
+1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
 
 ### Step 4:  Run the sample
 
-Choose the platform you want to work on by setting the startup project in the Solution Explorer. Make sure that your platform of choice is marked for build and deploy in the Configuration Manager.
-Clean the solution, rebuild the solution, and run it.
-Click the sign-in button at the bottom of the application screen. The sample works exactly in the same way regardless of the account type you choose, apart from some visual differences in the authentication and consent experience. Upon successful sign in, the application screen will list some basic profile info for the authenticated user and show buttons that allow you to edit your profile, call an API and sign out.
-Close the application and reopen it. You will see that the app retains access to the API and retrieves the user info right away, without the need to sign in again.
-Sign out by clicking the Sign out button and confirm that you lose access to the API until the exit interactive sign in.  
+1. Choose the platform you want to work on by setting the startup project in the Solution Explorer. Make sure that your platform of choice is marked for build and deploy in the Configuration Manager.
+1. Clean the solution, rebuild the solution, and run it.
+1. Click the sign-in button at the bottom of the application screen. The sample works exactly in the same way regardless of the account type you choose, apart from some visual differences in the authentication and consent experience. Upon successful sign in, the application screen will list some basic profile info for the authenticated user and show buttons that allow you to edit your profile, call an API and sign out.
+1. Close the application and reopen it. You will see that the app retains access to the API and retrieves the user info right away, without the need to sign in again.
+1. Sign out by clicking the Sign out button and confirm that you lose access to the API until the exit interactive sign in.  
 
 ## More information
 For more information on Azure B2C, see [the Azure AD B2C documentation homepage](http://aka.ms/aadb2c). 
