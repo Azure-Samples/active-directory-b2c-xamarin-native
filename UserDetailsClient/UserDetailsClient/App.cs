@@ -14,7 +14,7 @@ namespace UserDetailsClient
         
         // Azure AD B2C Coordinates
         public static string ClientID = "90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6";
-        public static string PolicySignUpSignIn = "b2c_1_susi_light";
+        public static string PolicySignUpSignIn = "b2c_1_susi";
         public static string PolicyEditProfile = "b2c_1_edit_profile";
         public static string PolicyResetPassword = "b2c_1_reset";
 
