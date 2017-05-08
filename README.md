@@ -39,7 +39,7 @@ You can find detailed instructions on how to create a new mobile /native app on 
 
 This sample requires your B2C app to the following policy types "Sign Up or Sign In", "Edit Profile" and "Reset Password".
 You can follow the instructions in [this tutorial](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-reference-policies) to create them.
-Once created, replace the following value in the `TaskClient/App.cs` file with your own policy name.  All B2C policies should begin with `b2c_1_`.
+Once created, replace the following value in the `UserDetailsClient/App.cs` file with your own policy name.  All B2C policies should begin with `b2c_1_`.
 
 ```C#
 public static string PolicySignUpSignIn = "b2c_1_susi";
