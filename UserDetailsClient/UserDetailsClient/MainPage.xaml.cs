@@ -28,12 +28,9 @@ namespace UserDetailsClient
             // in the cache already.
             try
             {
-                if (App.PCA.Users.Count() > 0)
-                {
-                    AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
-                    UpdateUserInfo(ar);
-                    UpdateSignInState(true);
-                }
+                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
+                UpdateUserInfo(ar);
+                UpdateSignInState(true);
             }
             catch (Exception ex)
             {
@@ -115,6 +112,7 @@ namespace UserDetailsClient
         {
             try
             {
+                lblApi.Text = $"Calling API {App.ApiEndpoint}";
                 AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
                 string token = ar.AccessToken;
 
@@ -181,6 +179,7 @@ namespace UserDetailsClient
             btnEditProfile.IsVisible = isSignedIn;
             btnCallApi.IsVisible = isSignedIn;
             slUser.IsVisible = isSignedIn;
+            lblApi.Text = "";
         }
     }
 
