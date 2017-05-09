@@ -19,14 +19,12 @@ namespace UserDetailsClient
         public static string PolicyResetPassword = "b2c_1_reset";
 
         public static string[] Scopes = { "https://fabrikamb2c.onmicrosoft.com/demoapi/demo.read" };
-        public static string ApiEndpoint = "https://aadb2cplayground.azurewebsites.net/api/Tasks";
+        public static string ApiEndpoint = "https://fabrikamb2chello.azurewebsites.net/hello";
 
         public static string AuthorityBase = "https://login.microsoftonline.com/tfp/fabrikamb2c.onmicrosoft.com/";
         public static string Authority = $"{AuthorityBase}{PolicySignUpSignIn}";
         public static string AuthorityEditProfile = $"{AuthorityBase}{PolicyEditProfile}";
         public static string AuthorityPasswordReset = $"{AuthorityBase}{PolicyResetPassword}";
-
-        public static string Username = string.Empty;
 
         public static UIParent UiParent = null;
 
