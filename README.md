@@ -62,20 +62,11 @@ PENDING
  2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
  3. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
  4. In the URL types, section, add an entry for the authorization schema used in your redirectUri.
- ```
-     <key>CFBundleURLTypes</key>
-        <array>
-      <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>com.yourcompany.UserDetailsClient</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-      <string>msala[APPLICATIONID]</string>
-        </array>
-      </dict>
-        </array> 
+ ```xml
+ <key>CFBundleURLSchemes</key>
+ <array>
+  <string>msal[APPLICATIONID]</string>
+ </array>
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
  #### [OPTIONAL] Step 5b: Configure the Android project with your app's return URI
