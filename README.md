@@ -22,7 +22,9 @@ If you just want to see the sample in action, you don't need to create your own 
 
 From your shell or command line:
 
-`git clone https://github.com/Azure-Samples/active-directory-b2c-xamarin-native.git`
+```powershell
+git clone https://github.com/Azure-Samples/active-directory-b2c-xamarin-native.git
+```
 
 ### [OPTIONAL] Step 2: Create an Azure AD B2C application 
 
@@ -41,7 +43,7 @@ This sample requires your B2C app to the following policy types "Sign Up or Sign
 You can follow the instructions in [this tutorial](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-reference-policies) to create them.
 Once created, replace the following value in the `UserDetailsClient/App.cs` file with your own policy name.  All B2C policies should begin with `b2c_1_`.
 
-```C#
+```csharp
 public static string PolicySignUpSignIn = "b2c_1_susi";
 ```
 
@@ -75,17 +77,17 @@ PENDING
  2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
  3. Open the `UserDetailsClient.Droid\Properties\AndroidManifest.xml`
  4. Add or modify the `<application>` element as in the following
- ```
-     <application>
-     <activity android:name="microsoft.identity.client.BrowserTabActivity">
-       <intent-filter>
-     <action android:name="android.intent.action.VIEW" />
-     <category android:name="android.intent.category.DEFAULT" />
-     <category android:name="android.intent.category.BROWSABLE" />
-     <data android:scheme="msal[APPLICATIONID]" android:host="auth" />
-       </intent-filter>
-     </activity>
-       </application>
+ ```xml
+<application>
+  <activity android:name="microsoft.identity.client.BrowserTabActivity">
+    <intent-filter>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="msal[APPLICATIONID]" android:host="auth" />
+    </intent-filter>
+  </activity>
+</application>
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
 
@@ -106,7 +108,7 @@ The structure of the solution is straightforward. All the application logic and 
 MSAL's main primitive for native clients, `PublicClientApplication`, is initialized as a static variable in App.cs.
 At application startup, the main page attempts to get a token without showing any UX - just in case a suitable token is already present in the cache from previous sessions. This is the code performing that logic:
 
-```
+```csharp
 protected override async void OnAppearing()
 {
     UpdateSignInState(false);
@@ -129,14 +131,14 @@ protected override async void OnAppearing()
 If the attempt to obtain a token silently fails, we do nothing and display the screen with the sign in button.
 When the sign in button is pressed, we execute the same logic - but using a method that shows interactive UX:
 
-```
+```csharp
 AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
 ```
 The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested throuhg subsequent web API call (in this sample, encapsulated in `OnCallApi`). 
 The UiParent is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. For more platform specific considerations, please see below.
 
 The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.               
-```
+```csharp
 foreach (var user in App.PCA.Users)
 {
     App.PCA.Remove(user);
@@ -149,14 +151,14 @@ The platform specific projects require only a couple of extra lines to accommoda
 UserDetailsClient.Droid requires one two extra lines in the `MainActivity.cs` file.
 In `OnActivityResult`, we need to add
 
-```
+```csharp
 AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
 
 ```
 That line ensures that the control goes back to MSAL once the interactive portion of the authentication flow ended.
 
 In `OnCreate`, we need to add the following assignment:
-```
+```csharp
 App.UiParent = new UIParent(Xamarin.Forms.Forms.Context as Activity); 
 ```
 That code ensures that the authentication flows occur in the context of the current activity.  
@@ -166,7 +168,7 @@ That code ensures that the authentication flows occur in the context of the curr
 
 UserDetailsClient.iOS only requires one extra line, in AppDelegate.cs.
 You need to ensure that the OpenUrl handler looks as ine snippet below:
-```
+```csharp
 public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
 {
     AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url, "");
