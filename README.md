@@ -47,11 +47,7 @@ Once created, replace the following value in the `UserDetailsClient/App.cs` file
 public static string PolicySignUpSignIn = "b2c_1_susi";
 ```
 
-### [OPTIONAL] Step 4: Create your own API
-
-PENDING
-
-### [OPTIONAL] Step 5: Configure the Visual Studio project with your app coordinates
+### [OPTIONAL] Step 4: Configure the Visual Studio project with your app coordinates
 
 1. Open the solution in Visual Studio.
 1. Open the `UserDetailsClient\App.cs` file.
@@ -59,7 +55,7 @@ PENDING
 1. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
 1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
 
-#### [OPTIONAL] Step 5a: Configure the iOS project with your app's return URI
+#### [OPTIONAL] Step 4a: Configure the iOS project with your app's return URI
  1. Open the `UserDetailsClient.iOS\AppDelegate.cs` file.
  2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
  3. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
@@ -71,7 +67,7 @@ PENDING
  </array>
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
- #### [OPTIONAL] Step 5b: Configure the Android project with your app's return URI
+ #### [OPTIONAL] Step 4b: Configure the Android project with your app's return URI
  
  1. Open the `UserDetailsClient.Droid\MainActivity.cs` file.
  2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
@@ -91,7 +87,7 @@ PENDING
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
 
-### Step 4: Run the sample
+### Step 5: Run the sample
 
 1. Choose the platform you want to work on by setting the startup project in the Solution Explorer. Make sure that your platform of choice is marked for build and deploy in the Configuration Manager.
 1. Clean the solution, rebuild the solution, and run it.
