@@ -26,28 +26,48 @@ From your shell or command line:
 git clone https://github.com/Azure-Samples/active-directory-b2c-xamarin-native.git
 ```
 
-### [OPTIONAL] Step 2: Create an Azure AD B2C application 
+### [OPTIONAL] Step 2: Get your own Azure AD B2C tenant
 
-You can run the sample as is with its current settings, or you can optionally register it as a new application under your own developer account. Creating your own app is highly recommended.
+You can also modify the sample to use your own Azure AD B2C tenant.  First, you'll need to create an Azure AD B2C tenant by following [these instructions](https://azure.microsoft.com/documentation/articles/active-directory-b2c-get-started).
 
 > *IMPORTANT*: if you choose to perform one of the optional steps, you have to perform ALL of them for the sample to work as expected.
 
-You can find detailed instructions on how to create a new mobile /native app on [this page](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-mobilenative-application) Make sure to:
-
-- Copy down the **Application Id** assigned to your app, you'll need it in the next optional steps.
-- Copy down the **Redirect URI** you configure for your app.
-
 ### [OPTIONAL] Step 3: Create your own policies
 
-This sample requires your B2C app to the following policy types "Sign Up or Sign In", "Edit Profile" and "Reset Password".
-You can follow the instructions in [this tutorial](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-reference-policies) to create them.
+This sample uses three types of policies: a unified sign-up/sign-in policy & a profile editing policy.  Create one policy of each type by following [the instructions here](https://azure.microsoft.com/documentation/articles/active-directory-b2c-reference-policies).  You may choose to include as many or as few identity providers as you wish.
+
+If you already have existing policies in your Azure AD B2C tenant, feel free to re-use those.  No need to create new ones just for this sample.
+
 Once created, replace the following value in the `UserDetailsClient/App.cs` file with your own policy name.  All B2C policies should begin with `b2c_1_`.
 
 ```csharp
 public static string PolicySignUpSignIn = "b2c_1_susi";
 ```
 
-### [OPTIONAL] Step 4: Configure the Visual Studio project with your app coordinates
+### [OPTIONAL] Step 4: Create your own Web API
+
+This sample calls an API at https://fabrikamb2chello.azurewebsites.net which has the same code as the sample [Node.js Web API with Azure AD B2C](https://github.com/Azure-Samples/active-directory-b2c-javascript-nodejs-webapi). You'll need your own API or at the very least, you'll need to [register a Web API with Azure AD B2C](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api) so that you can define the scopes that your single page application will request access tokens for. 
+
+Your web API registration should include the following information:
+
+- Enable the **Web App/Web API** setting for your application.
+- Set the **Reply URL** to the appropriate value indicated in the sample or provide any URL if you're only doing the web api registration, for example `https://myapi`.
+- Make sure you also provide a **AppID URI**, for example `demoapi`, this is used to construct the scopes that are configured in you single page application's code.
+- (Optional) Once you're app is created, open the app's **Published Scopes** blade and add any extra scopes you want.
+- Copy the **AppID URI** and **Published Scopes values**, so you can input them in your single page applicaton's code.
+
+### [OPTIONAL] Step 5: Create your own Native app
+
+Now you need to [register your native app in your B2C tenant](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-mobilenative-application), so that it has its own Application ID. Don't forget to grant your application API Access to the web API you registered in the previous step.
+
+Your native application registration should include the following information:
+
+- Enable the **Native Client** setting for your application.
+- Once your app is created, open the app's **Properties** blade and set the **Custom Redirect URI** for your app to `msal<Application Id>://auth`.
+- Once your app is created, open the app's **API access** blade and **Add** the API you created in the previous step.
+- Copy the Application ID generated for your application, so you can use it in the next step.
+
+### [OPTIONAL] Step 6: Configure the Visual Studio project with your app coordinates
 
 1. Open the solution in Visual Studio.
 1. Open the `UserDetailsClient\App.cs` file.
@@ -55,7 +75,7 @@ public static string PolicySignUpSignIn = "b2c_1_susi";
 1. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
 1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
 
-#### [OPTIONAL] Step 4a: Configure the iOS project with your app's return URI
+#### [OPTIONAL] Step 6a: Configure the iOS project with your app's return URI
  1. Open the `UserDetailsClient.iOS\AppDelegate.cs` file.
  2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
  3. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
@@ -67,7 +87,8 @@ public static string PolicySignUpSignIn = "b2c_1_susi";
  </array>
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
- #### [OPTIONAL] Step 4b: Configure the Android project with your app's return URI
+ 
+ #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
  1. Open the `UserDetailsClient.Droid\MainActivity.cs` file.
  2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
@@ -87,7 +108,7 @@ public static string PolicySignUpSignIn = "b2c_1_susi";
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
 
-### Step 5: Run the sample
+### Step 7: Run the sample
 
 1. Choose the platform you want to work on by setting the startup project in the Solution Explorer. Make sure that your platform of choice is marked for build and deploy in the Configuration Manager.
 1. Clean the solution, rebuild the solution, and run it.
@@ -96,10 +117,12 @@ public static string PolicySignUpSignIn = "b2c_1_susi";
 1. Sign out by clicking the Sign out button and confirm that you lose access to the API until the exit interactive sign in.  
 
 #### Running in an Android Emulator
+
 MSAL in Android requires support for Custom Chrome Tabs for displaying authentication prompts.
 Not every emulator image comes with Chrome on board: please refer to [this document](https://github.com/Azure-Samples/active-directory-general-docs/blob/master/AndroidEmulator.md) for instructions on how to ensure that your emulator supports the features required by MSAL. 
  
 ## About the code
+
 The structure of the solution is straightforward. All the application logic and UX reside in UserDetailsClient (portable).
 MSAL's main primitive for native clients, `PublicClientApplication`, is initialized as a static variable in App.cs.
 At application startup, the main page attempts to get a token without showing any UX - just in case a suitable token is already present in the cache from previous sessions. This is the code performing that logic:
@@ -130,7 +153,7 @@ When the sign in button is pressed, we execute the same logic - but using a meth
 ```csharp
 AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
 ```
-The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested throuhg subsequent web API call (in this sample, encapsulated in `OnCallApi`). 
+The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). 
 The UiParent is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. For more platform specific considerations, please see below.
 
 The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.               
@@ -142,6 +165,7 @@ foreach (var user in App.PCA.Users)
 ```
 
 ### Android specific considerations
+
 The platform specific projects require only a couple of extra lines to accommodate for individual platform differences.
 
 UserDetailsClient.Droid requires one two extra lines in the `MainActivity.cs` file.
@@ -174,4 +198,5 @@ public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
 Once again, this logic is meant to ensure that once the interactive portion of the authentication flow is concluded, the flow goes back to MSAL.
 
 ## More information
+
 For more information on Azure B2C, see [the Azure AD B2C documentation homepage](http://aka.ms/aadb2c). 
