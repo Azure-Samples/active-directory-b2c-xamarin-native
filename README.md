@@ -38,12 +38,6 @@ This sample uses three types of policies: a unified sign-up/sign-in policy & a p
 
 If you already have existing policies in your Azure AD B2C tenant, feel free to re-use those.  No need to create new ones just for this sample.
 
-Once created, replace the following value in the `UserDetailsClient/App.cs` file with your own policy name.  All B2C policies should begin with `b2c_1_`.
-
-```csharp
-public static string PolicySignUpSignIn = "b2c_1_susi";
-```
-
 ### [OPTIONAL] Step 4: Create your own Web API
 
 This sample calls an API at https://fabrikamb2chello.azurewebsites.net which has the same code as the sample [Node.js Web API with Azure AD B2C](https://github.com/Azure-Samples/active-directory-b2c-javascript-nodejs-webapi). You'll need your own API or at the very least, you'll need to [register a Web API with Azure AD B2C](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api) so that you can define the scopes that your single page application will request access tokens for. 
@@ -54,7 +48,7 @@ Your web API registration should include the following information:
 - Set the **Reply URL** to the appropriate value indicated in the sample or provide any URL if you're only doing the web api registration, for example `https://myapi`.
 - Make sure you also provide a **AppID URI**, for example `demoapi`, this is used to construct the scopes that are configured in you single page application's code.
 - (Optional) Once you're app is created, open the app's **Published Scopes** blade and add any extra scopes you want.
-- Copy the **AppID URI** and **Published Scopes values**, so you can input them in your single page applicaton's code.
+- Copy the **AppID URI** and **Published Scopes values**, so you can input them in your application's code.
 
 ### [OPTIONAL] Step 5: Create your own Native app
 
@@ -71,6 +65,7 @@ Your native application registration should include the following information:
 
 1. Open the solution in Visual Studio.
 1. Open the `UserDetailsClient\App.cs` file.
+1. Find the assignment for `public static string Tenant` and replace the value with your tenant name.
 1. Find the assignment for `public static string ClientID` and replace the value with the Application ID from Step 2.
 1. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
 1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
