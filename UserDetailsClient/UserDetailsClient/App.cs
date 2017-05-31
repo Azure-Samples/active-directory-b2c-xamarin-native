@@ -35,6 +35,7 @@ namespace UserDetailsClient
         {
             // default redirectURI; each platform specific project will have to override it with its own
             PCA = new PublicClientApplication(ClientID, Authority);
+            PCA.RedirectUri = $"msal{ClientID}://auth";
                         
             MainPage = new NavigationPage(new MainPage());        
         }
