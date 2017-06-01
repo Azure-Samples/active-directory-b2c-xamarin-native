@@ -12,7 +12,6 @@ This is a simple Xamarin Forms app showcasing how to use MSAL to authenticate us
 To run this sample you will need:
 - Visual Studio 2017
 - An Internet connection
-- At least one of the following accounts:
 - An Azure AD B2C tenant
 
 If you don't have an Azure AD B2C tenant, you can follow [those instructions](https://azure.microsoft.com/documentation/articles/active-directory-b2c-get-started/) to create one. 
