@@ -20,7 +20,6 @@ namespace UserDetailsClient.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
-            App.PCA.RedirectUri = "msal90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6://auth";
             App.UiParent = new UIParent(Xamarin.Forms.Forms.Context as Activity);           
         }
 

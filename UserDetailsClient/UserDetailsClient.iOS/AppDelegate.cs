@@ -25,7 +25,6 @@ namespace UserDetailsClient.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            App.PCA.RedirectUri = "msal90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6://auth";
             return base.FinishedLaunching(app, options);            
         }
 

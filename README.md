@@ -70,10 +70,8 @@ Your native application registration should include the following information:
 1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
 
 #### [OPTIONAL] Step 6a: Configure the iOS project with your app's return URI
- 1. Open the `UserDetailsClient.iOS\AppDelegate.cs` file.
- 2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
- 3. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
- 4. In the URL types, section, add an entry for the authorization schema used in your redirectUri.
+ 1. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
+ 1. In the URL types, section, add an entry for the authorization schema used in your redirectUri.
  ```xml
  <key>CFBundleURLSchemes</key>
  <array>
@@ -84,10 +82,8 @@ Your native application registration should include the following information:
  
  #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
- 1. Open the `UserDetailsClient.Droid\MainActivity.cs` file.
- 2. Locate the `App.PCA.RedirectUri` assignment, and change it to assign the string `"msal<Application Id>://auth"` where `<Application Id>` is the identifier you copied in step 2
- 3. Open the `UserDetailsClient.Droid\Properties\AndroidManifest.xml`
- 4. Add or modify the `<application>` element as in the following
+ 1. Open the `UserDetailsClient.Droid\Properties\AndroidManifest.xml`
+ 1. Add or modify the `<application>` element as in the following
  ```xml
 <application>
   <activity android:name="microsoft.identity.client.BrowserTabActivity">
