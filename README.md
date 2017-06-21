@@ -1,7 +1,7 @@
 ---
 services: active-directory-b2c
 platforms: dotnet, xamarin
-author: gsacavdm
+author: jmprieur
 ---
 
 # Integrate Azure AD B2C into a Xamarin forms app using MSAL
