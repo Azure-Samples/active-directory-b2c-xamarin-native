@@ -46,7 +46,7 @@ Your web API registration should include the following information:
 - Enable the **Web App/Web API** setting for your application.
 - Set the **Reply URL** to the appropriate value indicated in the sample or provide any URL if you're only doing the web api registration, for example `https://myapi`.
 - Make sure you also provide a **AppID URI**, for example `demoapi`, this is used to construct the scopes that are configured in you single page application's code.
-- (Optional) Once you're app is created, open the app's **Published Scopes** blade and add any extra scopes you want.
+- Once your app is created, open the app's **Published Scopes** blade and create a scope with `read` name.
 - Copy the **AppID URI** and **Published Scopes values**, so you can input them in your application's code.
 
 ### [OPTIONAL] Step 5: Create your own Native app
@@ -65,7 +65,7 @@ Your native application registration should include the following information:
 1. Open the solution in Visual Studio.
 1. Open the `UserDetailsClient\App.cs` file.
 1. Find the assignment for `public static string Tenant` and replace the value with your tenant name.
-1. Find the assignment for `public static string ClientID` and replace the value with the Application ID from Step 2.
+1. Find the assignment for `public static string ClientID` and replace the value with the Application ID from Step 5.
 1. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
 1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
 
@@ -143,8 +143,9 @@ When the sign in button is pressed, we execute the same logic - but using a meth
 ```csharp
 AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
 ```
-The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). 
-The UiParent is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. For more platform specific considerations, please see below.
+The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). Scopes should be input in the following format: `https://{tenant_name}.onmicrosoft.com/{app_name}/{scope_value}` 
+
+The `UiParent` is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. For more platform specific considerations, please see below.
 
 The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.               
 ```csharp
