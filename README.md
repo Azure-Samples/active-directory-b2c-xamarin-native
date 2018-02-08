@@ -80,7 +80,7 @@ Your native application registration should include the following information:
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
  
- #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
+#### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
  1. Open the `UserDetailsClient.Droid\Properties\AndroidManifest.xml`
  1. Add or modify the `<application>` element as in the following
