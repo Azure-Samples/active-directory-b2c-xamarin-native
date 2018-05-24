@@ -4275,8 +4275,8 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f08001e
 			public const int add = 2131230750;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int agentWebView = 2131230898;
+			// aapt resource value: 0x7f0800b4
+			public const int agentWebView = 2131230900;
 			
 			// aapt resource value: 0x7f080058
 			public const int alertTitle = 2131230808;
@@ -4443,8 +4443,8 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080048
 			public const int list_item = 2131230792;
 			
-			// aapt resource value: 0x7f0800b4
-			public const int masked = 2131230900;
+			// aapt resource value: 0x7f0800b6
+			public const int masked = 2131230902;
 			
 			// aapt resource value: 0x7f0800a1
 			public const int media_actions = 2131230881;
@@ -4644,6 +4644,9 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080017
 			public const int showTitle = 2131230743;
 			
+			// aapt resource value: 0x7f0800b2
+			public const int sliding_tabs = 2131230898;
+			
 			// aapt resource value: 0x7f080073
 			public const int smallLabel = 2131230835;
 			
@@ -4719,6 +4722,9 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080057
 			public const int title_template = 2131230807;
 			
+			// aapt resource value: 0x7f0800b3
+			public const int toolbar = 2131230899;
+			
 			// aapt resource value: 0x7f080029
 			public const int top = 2131230761;
 			
@@ -4743,8 +4749,8 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int visible = 2131230899;
+			// aapt resource value: 0x7f0800b5
+			public const int visible = 2131230901;
 			
 			// aapt resource value: 0x7f080093
 			public const int volume_item_container = 2131230867;
@@ -5035,7 +5041,13 @@ namespace UserDetailsClient.Droid
 			public const int support_simple_spinner_dropdown_item = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int WebAuthenticationBroker = 2130903106;
+			public const int Tabbar = 2130903106;
+			
+			// aapt resource value: 0x7f030043
+			public const int Toolbar = 2130903107;
+			
+			// aapt resource value: 0x7f030044
+			public const int WebAuthenticationBroker = 2130903108;
 			
 			static Layout()
 			{
@@ -5266,6 +5278,9 @@ namespace UserDetailsClient.Droid
 			
 			// aapt resource value: 0x7f0b0170
 			public const int Animation_Design_BottomSheetDialog = 2131427696;
+			
+			// aapt resource value: 0x7f0b018b
+			public const int AppCompatDialogStyle = 2131427723;
 			
 			// aapt resource value: 0x7f0b00b2
 			public const int Base_AlertDialog_AppCompat = 2131427506;
@@ -5740,6 +5755,12 @@ namespace UserDetailsClient.Droid
 			
 			// aapt resource value: 0x7f0b000e
 			public const int CardView_Light = 2131427342;
+			
+			// aapt resource value: 0x7f0b0189
+			public const int MyTheme = 2131427721;
+			
+			// aapt resource value: 0x7f0b018a
+			public const int MyTheme_Base = 2131427722;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int Platform_AppCompat = 2131427373;
