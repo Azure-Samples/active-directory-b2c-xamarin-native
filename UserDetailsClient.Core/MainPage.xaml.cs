@@ -1,25 +1,21 @@
-﻿using Microsoft.Identity.Client;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-
+using Microsoft.Identity.Client;
+using Newtonsoft.Json.Linq;
 using Xamarin.Forms;
 
-namespace UserDetailsClient
+namespace UserDetailsClient.Core
 {
     public partial class MainPage : ContentPage
     {
-        
         public MainPage()
         {
             InitializeComponent();
         }
+
         protected override async void OnAppearing()
         {
             UpdateSignInState(false);
@@ -60,7 +56,7 @@ namespace UserDetailsClient
                     UpdateSignInState(false);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Checking the exception message 
                 // should ONLY be done for B2C
@@ -73,7 +69,7 @@ namespace UserDetailsClient
             }
         }
 
-        private IUser GetUserByPolicy(IEnumerable <IUser> users, string policy)
+        private IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
         {
             foreach (var user in users)
             {
@@ -97,7 +93,7 @@ namespace UserDetailsClient
         {
             JObject user = ParseIdToken(ar.IdToken);
             lblName.Text = user["name"]?.ToString();
-            lblId.Text = user["oid"]?.ToString();             
+            lblId.Text = user["oid"]?.ToString();
         }
 
         JObject ParseIdToken(string idToken)
@@ -182,6 +178,4 @@ namespace UserDetailsClient
             lblApi.Text = "";
         }
     }
-
-    
 }
