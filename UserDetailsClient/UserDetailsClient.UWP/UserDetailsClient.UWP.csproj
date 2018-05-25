@@ -125,7 +125,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\UserDetailsClient.Core\UserDetailsClient.Core.csproj">
+    <ProjectReference Include="..\UserDetailsClient.Core\UserDetailsClient.Core.csproj">
       <Project>{11b85848-b0b2-4040-b2ef-4d1d153f69dc}</Project>
       <Name>UserDetailsClient.Core</Name>
     </ProjectReference>

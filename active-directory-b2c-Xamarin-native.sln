@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDetailsClient.Droid", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDetailsClient.iOS", "UserDetailsClient\UserDetailsClient.iOS\UserDetailsClient.iOS.csproj", "{4546452D-55D8-41CA-B68B-F8D8D827EE4A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDetailsClient.Core", "UserDetailsClient.Core\UserDetailsClient.Core.csproj", "{11B85848-B0B2-4040-B2EF-4D1D153F69DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDetailsClient.Core", "UserDetailsClient\UserDetailsClient.Core\UserDetailsClient.Core.csproj", "{11B85848-B0B2-4040-B2EF-4D1D153F69DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDetailsClient.UWP", "UserDetailsClient\UserDetailsClient.UWP\UserDetailsClient.UWP.csproj", "{CB126428-9739-4C4E-9CBB-F09C03080415}"
 EndProject
