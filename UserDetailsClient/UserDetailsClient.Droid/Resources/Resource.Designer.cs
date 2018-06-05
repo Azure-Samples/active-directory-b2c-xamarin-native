@@ -5803,33 +5803,6 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f0b005f
 			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131427423;
 			
-			// aapt resource value: 0x7f0b005a
-			public const int Base_TextAppearance_AppCompat_Title = 2131427418;
-			
-			// aapt resource value: 0x7f0b001f
-			public const int Base_TextAppearance_AppCompat_Title_Inverse = 2131427359;
-			
-			// aapt resource value: 0x7f0b00b1
-			public const int Base_TextAppearance_AppCompat_Tooltip = 2131427505;
-			
-			// aapt resource value: 0x7f0b0095
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131427477;
-			
-			// aapt resource value: 0x7f0b005b
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131427419;
-			
-			// aapt resource value: 0x7f0b005c
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131427420;
-			
-			// aapt resource value: 0x7f0b005d
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title = 2131427421;
-			
-			// aapt resource value: 0x7f0b005e
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131427422;
-			
-			// aapt resource value: 0x7f0b005f
-			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131427423;
-			
 			// aapt resource value: 0x7f0b0060
 			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Title = 2131427424;
 			
