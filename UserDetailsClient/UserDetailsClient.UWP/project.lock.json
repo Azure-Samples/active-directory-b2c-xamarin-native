@@ -2,6 +2,9 @@
   "version": 3,
   "targets": {
     "UAP,Version=v10.0.10240": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -29,8 +32,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -1917,6 +1923,9 @@
       }
     },
     "UAP,Version=v10.0.10240/win10-arm": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -1944,8 +1953,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -3689,6 +3701,9 @@
       }
     },
     "UAP,Version=v10.0.10240/win10-arm-aot": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -3716,8 +3731,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -5424,6 +5442,9 @@
       }
     },
     "UAP,Version=v10.0.10240/win10-x64": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -5451,8 +5472,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -7203,6 +7227,9 @@
       }
     },
     "UAP,Version=v10.0.10240/win10-x64-aot": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -7230,8 +7257,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -8938,6 +8968,9 @@
       }
     },
     "UAP,Version=v10.0.10240/win10-x86": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -8965,8 +8998,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -10717,6 +10753,9 @@
       }
     },
     "UAP,Version=v10.0.10240/win10-x86-aot": {
+      "AsyncUsageAnalyzers/1.0.0-alpha003": {
+        "type": "package"
+      },
       "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -10744,8 +10783,11 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Identity.Client/1.1.2-preview0008": {
+      "Microsoft.Identity.Client/1.1.4-preview0002": {
         "type": "package",
+        "dependencies": {
+          "AsyncUsageAnalyzers": "1.0.0-alpha003"
+        },
         "compile": {
           "lib/win81/Microsoft.Identity.Client.dll": {}
         },
@@ -12453,6 +12495,18 @@
     }
   },
   "libraries": {
+    "AsyncUsageAnalyzers/1.0.0-alpha003": {
+      "sha512": "rj0BLCPLI0QF6/fDswekUtavjj2g6uA4vsASOZ0g6N/w77XQTQgzSqhiJ/6Py6R5HhdpQ3HfkjUpR+KSvWq3nQ==",
+      "type": "package",
+      "path": "asyncusageanalyzers/1.0.0-alpha003",
+      "files": [
+        "analyzers/dotnet/AsyncUsageAnalyzers.dll",
+        "asyncusageanalyzers.1.0.0-alpha003.nupkg.sha512",
+        "asyncusageanalyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
     "Microsoft.CSharp/4.0.0": {
       "sha512": "oWqeKUxHXdK6dL2CFjgMcaBISbkk+AqEg+yvJHE4DElNzS4QaTsCflgkkqZwVlWby1Dg9zo9n+iCAMFefFdJ/A==",
       "type": "package",
@@ -12493,21 +12547,26 @@
         "ref/xamarinmac20/_._"
       ]
     },
-    "Microsoft.Identity.Client/1.1.2-preview0008": {
-      "sha512": "bzcLQcBbyaQ5qVCTj2Tewb6JF51tRi33cqvMfy+CkZzZbdHqKlY6lv42Tm6B4kfWMvySsHj4O5kR9BSSipocMg==",
+    "Microsoft.Identity.Client/1.1.4-preview0002": {
+      "sha512": "qAWYc/IYbSyqVEcGECTpX8/NBnA4MDz16K2/UWnztHM/+4Gww8BmgiK+d2zKx4aEUDzn9b1INzeEfj2LdCYlrg==",
       "type": "package",
-      "path": "microsoft.identity.client/1.1.2-preview0008",
+      "path": "microsoft.identity.client/1.1.4-preview0002",
       "files": [
-        "Microsoft.Identity.Client.dll",
-        "Microsoft.Identity.Client.pri",
-        "Microsoft.Identity.Client.xml",
-        "lib/monoandroid7/Microsoft.Identity.Client.dll",
+        ".signature.p7s",
+        "lib/monoandroid81/Microsoft.Identity.Client.dll",
+        "lib/monoandroid81/Microsoft.Identity.Client.xml",
         "lib/net45/Microsoft.Identity.Client.dll",
+        "lib/net45/Microsoft.Identity.Client.xml",
         "lib/netstandard1.1/Microsoft.Identity.Client.dll",
+        "lib/netstandard1.1/Microsoft.Identity.Client.xml",
         "lib/netstandard1.3/Microsoft.Identity.Client.dll",
+        "lib/netstandard1.3/Microsoft.Identity.Client.xml",
         "lib/win81/Microsoft.Identity.Client.dll",
-        "lib/xamarin.ios10/Microsoft.Identity.Client.dll",
-        "microsoft.identity.client.1.1.2-preview0008.nupkg.sha512",
+        "lib/win81/Microsoft.Identity.Client.pri",
+        "lib/win81/Microsoft.Identity.Client.xml",
+        "lib/xamarinios10/Microsoft.Identity.Client.dll",
+        "lib/xamarinios10/Microsoft.Identity.Client.xml",
+        "microsoft.identity.client.1.1.4-preview0002.nupkg.sha512",
         "microsoft.identity.client.nuspec"
       ]
     },
@@ -15903,7 +15962,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.Identity.Client >= 1.1.2-preview0008",
+      "Microsoft.Identity.Client >= 1.1.4-preview0002",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Xamarin.Forms >= 2.5.0.91635"
     ],
@@ -15931,6 +15990,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "sources": {
+        "C:\\drop\\src\\1.1.4-preview.2-nuget-packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -15944,7 +16004,7 @@
       }
     },
     "dependencies": {
-      "Microsoft.Identity.Client": "[1.1.2-preview0008, )",
+      "Microsoft.Identity.Client": "[1.1.4-preview0002, )",
       "Microsoft.NETCore.UniversalWindowsPlatform": "[5.0.0, )",
       "Xamarin.Forms": "[2.5.0.91635, )"
     },
