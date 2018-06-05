@@ -99,9 +99,6 @@
     <BundleResource Include="Resources\Icon-Small%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Identity.Client, Version=1.1.2.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Identity.Client.1.1.2-preview0008\lib\xamarin.ios10\Microsoft.Identity.Client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Net.Http" />
@@ -124,6 +121,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client">
+      <HintPath>..\..\packages\Microsoft.Identity.Client.1.1.3-preview0012\lib\xamarin.ios10\Microsoft.Identity.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
