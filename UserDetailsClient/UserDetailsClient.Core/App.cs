@@ -1,17 +1,14 @@
-﻿using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using Microsoft.Identity.Client;
 
 using Xamarin.Forms;
 
-namespace UserDetailsClient
+namespace UserDetailsClient.Core
 {
     public class App : Application
     {
         public static PublicClientApplication PCA = null;
-        
+
         // Azure AD B2C Coordinates
         public static string Tenant = "fabrikamb2c.onmicrosoft.com";
         public static string ClientID = "90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6";
@@ -29,15 +26,15 @@ namespace UserDetailsClient
 
         public static UIParent UiParent = null;
 
-      
+
 
         public App()
         {
             // default redirectURI; each platform specific project will have to override it with its own
             PCA = new PublicClientApplication(ClientID, Authority);
             PCA.RedirectUri = $"msal{ClientID}://auth";
-                        
-            MainPage = new NavigationPage(new MainPage());        
+
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

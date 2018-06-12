@@ -4625,8 +4625,8 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080027
 			public const int add = 2131230759;
 			
-			// aapt resource value: 0x7f0800c7
-			public const int agentWebView = 2131230919;
+			// aapt resource value: 0x7f0800c9
+			public const int agentWebView = 2131230921;
 			
 			// aapt resource value: 0x7f080070
 			public const int alertTitle = 2131230832;
@@ -4808,14 +4808,14 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080061
 			public const int list_item = 2131230817;
 			
-			// aapt resource value: 0x7f0800c9
-			public const int masked = 2131230921;
+			// aapt resource value: 0x7f0800cb
+			public const int masked = 2131230923;
 			
 			// aapt resource value: 0x7f0800b9
 			public const int media_actions = 2131230905;
 			
-			// aapt resource value: 0x7f0800c6
-			public const int message = 2131230918;
+			// aapt resource value: 0x7f0800c8
+			public const int message = 2131230920;
 			
 			// aapt resource value: 0x7f080031
 			public const int middle = 2131230769;
@@ -5024,6 +5024,9 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080025
 			public const int showTitle = 2131230757;
 			
+			// aapt resource value: 0x7f0800c6
+			public const int sliding_tabs = 2131230918;
+			
 			// aapt resource value: 0x7f08008b
 			public const int smallLabel = 2131230859;
 			
@@ -5102,6 +5105,9 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f08006f
 			public const int title_template = 2131230831;
 			
+			// aapt resource value: 0x7f0800c7
+			public const int toolbar = 2131230919;
+			
 			// aapt resource value: 0x7f08003e
 			public const int top = 2131230782;
 			
@@ -5138,8 +5144,8 @@ namespace UserDetailsClient.Droid
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-			// aapt resource value: 0x7f0800c8
-			public const int visible = 2131230920;
+			// aapt resource value: 0x7f0800ca
+			public const int visible = 2131230922;
 			
 			// aapt resource value: 0x7f0800ab
 			public const int volume_item_container = 2131230891;
@@ -5430,10 +5436,16 @@ namespace UserDetailsClient.Droid
 			public const int support_simple_spinner_dropdown_item = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int tooltip = 2130903105;
+			public const int Tabbar = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int WebAuthenticationBroker = 2130903106;
+			public const int Toolbar = 2130903106;
+			
+			// aapt resource value: 0x7f030043
+			public const int tooltip = 2130903107;
+			
+			// aapt resource value: 0x7f030044
+			public const int WebAuthenticationBroker = 2130903108;
 			
 			static Layout()
 			{
@@ -5661,6 +5673,9 @@ namespace UserDetailsClient.Droid
 			
 			// aapt resource value: 0x7f0b016e
 			public const int Animation_Design_BottomSheetDialog = 2131427694;
+			
+			// aapt resource value: 0x7f0b0191
+			public const int AppCompatDialogStyle = 2131427729;
 			
 			// aapt resource value: 0x7f0b00a9
 			public const int Base_AlertDialog_AppCompat = 2131427497;
@@ -6162,6 +6177,12 @@ namespace UserDetailsClient.Droid
 			
 			// aapt resource value: 0x7f0b000e
 			public const int CardView_Light = 2131427342;
+			
+			// aapt resource value: 0x7f0b018f
+			public const int MyTheme = 2131427727;
+			
+			// aapt resource value: 0x7f0b0190
+			public const int MyTheme_Base = 2131427728;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int Platform_AppCompat = 2131427373;

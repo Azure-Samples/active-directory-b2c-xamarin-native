@@ -6,6 +6,9 @@ using Foundation;
 using UIKit;
 using Microsoft.Identity.Client;
 
+using UserDetailsClient.Core;
+
+
 namespace UserDetailsClient.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -25,7 +28,7 @@ namespace UserDetailsClient.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            return base.FinishedLaunching(app, options);            
+            return base.FinishedLaunching(app, options);
         }
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
