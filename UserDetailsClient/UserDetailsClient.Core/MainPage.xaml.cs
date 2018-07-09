@@ -54,19 +54,12 @@ namespace UserDetailsClient.Core
 
         private IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
         {
-            if (users != null)
+            foreach (var user in users)
             {
-                IUser[] userArray = users.ToArray();
-                IUser currentUser = null;
-                for (int i = 0; i < userArray.Length; i++)
-                {
-                    string identifier = userArray[i].Identifier;
-                    string userIdentifier = identifier.Split('.')[0];
-                    if (userIdentifier.EndsWith(policy.ToLower()))
-                    { currentUser = userArray[i]; }
-                }
-                return currentUser;
+                string userIdentifier = user.Identifier.Split('.')[0];
+                if (userIdentifier.EndsWith(policy.ToLower())) return user;
             }
+
             return null;
         }
 
