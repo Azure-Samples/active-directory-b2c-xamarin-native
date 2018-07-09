@@ -16,27 +16,6 @@ namespace UserDetailsClient.Core
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
-        {
-            UpdateSignInState(false);
-
-            // Check to see if we have a User
-            // in the cache already.
-            try
-            {
-                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
-                UpdateUserInfo(ar);
-                UpdateSignInState(true);
-            }
-            catch (Exception ex)
-            {
-                // Uncomment for debugging purposes
-                //await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
-
-                // Doesn't matter, we go in interactive mode
-                UpdateSignInState(false);
-            }
-        }
         async void OnSignInSignOut(object sender, EventArgs e)
         {
             try
@@ -45,7 +24,9 @@ namespace UserDetailsClient.Core
                 {
                     AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
                     UpdateUserInfo(ar);
+                    Device.BeginInvokeOnMainThread(() => { btnSignInSignOut.Text = "Sign out"; });
                     UpdateSignInState(true);
+
                 }
                 else
                 {
@@ -53,7 +34,9 @@ namespace UserDetailsClient.Core
                     {
                         App.PCA.Remove(user);
                     }
+                    Device.BeginInvokeOnMainThread(() => { btnSignInSignOut.Text = "Sign in"; });
                     UpdateSignInState(false);
+
                 }
             }
             catch (Exception ex)
@@ -71,12 +54,19 @@ namespace UserDetailsClient.Core
 
         private IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
         {
-            foreach (var user in users)
+            if (users != null)
             {
-                string userIdentifier = Base64UrlDecode(user.Identifier.Split('.')[0]);
-                if (userIdentifier.EndsWith(policy.ToLower())) return user;
+                IUser[] userArray = users.ToArray();
+                IUser currentUser = null;
+                for (int i = 0; i < userArray.Length; i++)
+                {
+                    string identifier = userArray[i].Identifier;
+                    string userIdentifier = identifier.Split('.')[0];
+                    if (userIdentifier.EndsWith(policy.ToLower()))
+                    { currentUser = userArray[i]; }
+                }
+                return currentUser;
             }
-
             return null;
         }
 
