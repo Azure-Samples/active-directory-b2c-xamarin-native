@@ -16,7 +16,7 @@ namespace UserDetailsClient.Core
         public static string PolicyEditProfile = "b2c_1_edit_profile";
         public static string PolicyResetPassword = "b2c_1_reset";
 
-        public static string[] Scopes = { "https://fabrikamb2c.onmicrosoft.com/demoapi/demo.read" };
+        public static string[] Scopes = { "https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read" };
         public static string ApiEndpoint = "https://fabrikamb2chello.azurewebsites.net/hello";
 
         public static string AuthorityBase = $"https://login.microsoftonline.com/tfp/{Tenant}/";
