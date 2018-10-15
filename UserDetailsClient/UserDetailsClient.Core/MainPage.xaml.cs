@@ -16,42 +16,23 @@ namespace UserDetailsClient.Core
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
-        {
-            UpdateSignInState(false);
-
-            // Check to see if we have a User
-            // in the cache already.
-            try
-            {
-                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
-                UpdateUserInfo(ar);
-                UpdateSignInState(true);
-            }
-            catch (Exception ex)
-            {
-                // Uncomment for debugging purposes
-                //await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
-
-                // Doesn't matter, we go in interactive mode
-                UpdateSignInState(false);
-            }
-        }
         async void OnSignInSignOut(object sender, EventArgs e)
         {
+            IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
                 if (btnSignInSignOut.Text == "Sign in")
                 {
-                    AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
+                    AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn), App.UiParent);
                     UpdateUserInfo(ar);
                     UpdateSignInState(true);
                 }
                 else
                 {
-                    foreach (var user in App.PCA.Users)
+                    while (accounts.Any())
                     {
-                        App.PCA.Remove(user);
+                        await App.PCA.RemoveAsync(accounts.FirstOrDefault());
+                        accounts = await App.PCA.GetAccountsAsync();
                     }
                     UpdateSignInState(false);
                 }
@@ -69,12 +50,12 @@ namespace UserDetailsClient.Core
             }
         }
 
-        private IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
+        private IAccount GetAccountByPolicy(IEnumerable<IAccount> accounts, string policy)
         {
-            foreach (var user in users)
+            foreach (var account in accounts)
             {
-                string userIdentifier = Base64UrlDecode(user.Identifier.Split('.')[0]);
-                if (userIdentifier.EndsWith(policy.ToLower())) return user;
+                string userIdentifier = account.HomeAccountId.ObjectId.Split('.')[0];
+                if (userIdentifier.EndsWith(policy.ToLower())) return account;
             }
 
             return null;
@@ -106,10 +87,11 @@ namespace UserDetailsClient.Core
 
         async void OnCallApi(object sender, EventArgs e)
         {
+            IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
-                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
+                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn), App.Authority, false);
                 string token = ar.AccessToken;
 
                 // Get data from API
@@ -139,12 +121,13 @@ namespace UserDetailsClient.Core
 
         async void OnEditProfile(object sender, EventArgs e)
         {
+            IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
                 // KNOWN ISSUE:
                 // User will get prompted 
                 // to pick an IdP again.
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicyEditProfile), UIBehavior.SelectAccount, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicyEditProfile), UIBehavior.SelectAccount, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
@@ -158,7 +141,7 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IUser)null, UIBehavior.SelectAccount, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IAccount)null, UIBehavior.SelectAccount, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)

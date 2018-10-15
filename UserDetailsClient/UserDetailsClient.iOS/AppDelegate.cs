@@ -28,6 +28,10 @@ namespace UserDetailsClient.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+
+            // Default system browser
+            App.UiParent = new UIParent();
+
             return base.FinishedLaunching(app, options);
         }
 

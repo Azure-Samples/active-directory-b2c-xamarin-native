@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-sdk android:minSdkVersion="23" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <application>
-        <activity android:name="microsoft.identity.client.BrowserTabActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="msal90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6" android:host="auth" />
-            </intent-filter>
-        </activity>
-    </application>
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="27" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<application>
+		<activity android:name="microsoft.identity.client.BrowserTabActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="msal90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6" android:host="auth" />
+			</intent-filter>
+		</activity>
+	</application>
 </manifest>
