@@ -24,9 +24,7 @@ namespace UserDetailsClient.Core
         public static string AuthorityEditProfile = $"{AuthorityBase}{PolicyEditProfile}";
         public static string AuthorityPasswordReset = $"{AuthorityBase}{PolicyResetPassword}";
 
-        public static UIParent UiParent = null;
-
-
+        public static UIParent UiParent { get; set; }
 
         public App()
         {
