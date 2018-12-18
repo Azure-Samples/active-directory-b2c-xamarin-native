@@ -7,7 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-
+using Microsoft.Identity.Client.Platforms.Android;
 using UserDetailsClient.Core;
 using Xamarin.Forms.Platform.Android;
 

@@ -44,7 +44,7 @@ namespace UserDetailsClient.Core
                 // reset and not any other error.
                 if (ex.Message.Contains("AADB2C90118"))
                     OnPasswordReset();
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user cancelling sign-in dialog
                 else if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
@@ -124,15 +124,12 @@ namespace UserDetailsClient.Core
             IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
-                // KNOWN ISSUE:
-                // User will get prompted 
-                // to pick an IdP again.
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicyEditProfile), UIBehavior.SelectAccount, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicyEditProfile), UIBehavior.NoPrompt, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
             {
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user cancelling sign-in dialog
                 if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
@@ -141,12 +138,12 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IAccount)null, UIBehavior.SelectAccount, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IAccount)null, UIBehavior.NoPrompt, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
             {
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user cancelling sign-in dialog
                 if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
