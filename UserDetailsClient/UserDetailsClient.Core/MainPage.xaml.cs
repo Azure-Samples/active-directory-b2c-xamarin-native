@@ -127,7 +127,7 @@ namespace UserDetailsClient.Core
                 // KNOWN ISSUE:
                 // User will get prompted 
                 // to pick an IdP again.
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicyEditProfile), UIBehavior.SelectAccount, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicyEditProfile), UIBehavior.NoPrompt, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IAccount)null, UIBehavior.SelectAccount, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IAccount)null, UIBehavior.NoPrompt, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
