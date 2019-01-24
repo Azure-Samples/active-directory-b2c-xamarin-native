@@ -35,6 +35,8 @@ You can also modify the sample to use your own Azure AD B2C tenant.  First, you'
 
 This sample uses three types of policies: a unified sign-up/sign-in policy & a profile editing policy.  Create one policy of each type by following [the instructions here](https://azure.microsoft.com/documentation/articles/active-directory-b2c-reference-policies).  You may choose to include as many or as few identity providers as you wish.
 
+- *IMPORTANT*: When setting up your identity providers, be sure to [set the redirect URLs](https://docs.microsoft.com/en-us/azure/active-directory-b2c/b2clogin) to use `b2clogin.com`.
+
 If you already have existing policies in your Azure AD B2C tenant, feel free to re-use those.  No need to create new ones just for this sample.
 
 ### [OPTIONAL] Step 4: Create your own Web API
@@ -65,6 +67,7 @@ Your native application registration should include the following information:
 1. Open the solution in Visual Studio.
 1. Open the `UserDetailsClient\App.cs` file.
 1. Find the assignment for `public static string Tenant` and replace the value with your tenant name.
+1. Find the assignment for `public static string TentantRedirectUrl` and replace the value with your tenant redirect url. In the past, `login.microsoftonline.com` was used, now you should be using `b2clogin.com`. For more information on changing redirect URL's [see here](https://docs.microsoft.com/en-us/azure/active-directory-b2c/b2clogin).
 1. Find the assignment for `public static string ClientID` and replace the value with the Application ID from Step 5.
 1. Find the assignment for each of the policies `public static string PolicyX` and replace the names of the policies you created in Step 3.
 1. Find the assignment for the scopes `public static string[] Scopes` and replace the scopes with those you created in Step 4.
