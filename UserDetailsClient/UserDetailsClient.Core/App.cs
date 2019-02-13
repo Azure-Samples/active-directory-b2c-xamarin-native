@@ -10,14 +10,15 @@ namespace UserDetailsClient.Core
         public static PublicClientApplication PCA = null;
 
         // Azure AD B2C Coordinates
-        public static string Tenant = "fabrikamb2c.onmicrosoft.com";
-        public static string AzureADB2CHostname = "login.microsoftonline.com";
-        public static string ClientID = "90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6";
+        public static string Tenant = "navtest.partner.onmschina.cn";
+        //public static string AzureADB2CHostname = "navtest.b2clogin.cn";
+        public static string AzureADB2CHostname = "login.chinacloudapi.cn";
+        public static string ClientID = "bb88579c-36d8-45ec-9b8b-a226ee7619d3";
         public static string PolicySignUpSignIn = "b2c_1_susi";
         public static string PolicyEditProfile = "b2c_1_edit_profile";
         public static string PolicyResetPassword = "b2c_1_reset";
 
-        public static string[] Scopes = { "https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read" };
+        public static string[] Scopes = { "https://navtest.partner.onmschina.cn/navtestapp/user_impersonation" };
         public static string ApiEndpoint = "https://fabrikamb2chello.azurewebsites.net/hello";
 
         public static string AuthorityBase = $"https://{AzureADB2CHostname}/tfp/{Tenant}/";
@@ -31,6 +32,8 @@ namespace UserDetailsClient.Core
         {
             // default redirectURI; each platform specific project will have to override it with its own
             PCA = new PublicClientApplication(ClientID, Authority);
+            PCA.ValidateAuthority = false;
+           
             PCA.RedirectUri = $"msal{ClientID}://auth";
 
             MainPage = new NavigationPage(new MainPage());

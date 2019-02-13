@@ -14,6 +14,7 @@ namespace UserDetailsClient.Core
         public MainPage()
         {
             InitializeComponent();
+            App.UiParent = new UIParent();
         }
 
         async void OnSignInSignOut(object sender, EventArgs e)
