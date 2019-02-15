@@ -11,8 +11,8 @@ namespace UserDetailsClient.Core
 
         // Azure AD B2C Coordinates
         public static string Tenant = "navtest.partner.onmschina.cn";
-        //public static string AzureADB2CHostname = "navtest.b2clogin.cn";
-        public static string AzureADB2CHostname = "login.chinacloudapi.cn";
+        public static string AzureADB2CHostname = "navtest.b2clogin.cn";
+        //public static string AzureADB2CHostname = "login.chinacloudapi.cn";
         public static string ClientID = "bb88579c-36d8-45ec-9b8b-a226ee7619d3";
         public static string PolicySignUpSignIn = "b2c_1_susi";
         public static string PolicyEditProfile = "b2c_1_edit_profile";

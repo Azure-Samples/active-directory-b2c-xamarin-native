@@ -23,7 +23,7 @@ namespace UserDetailsClient.UWP
             this.InitializeComponent();
 
             var app = new UserDetailsClient.Core.App();
-            UserDetailsClient.Core.App.PCA.RedirectUri = WebAuthenticationBroker.GetCurrentApplicationCallbackUri().ToString();
+           // UserDetailsClient.Core.App.PCA.RedirectUri = WebAuthenticationBroker.GetCurrentApplicationCallbackUri().ToString();
             LoadApplication(app);
         }
     }
