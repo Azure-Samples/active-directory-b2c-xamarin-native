@@ -14,6 +14,33 @@ namespace UserDetailsClient.Core
         public MainPage()
         {
             InitializeComponent();
+            CheckForAccountsAsync();
+        }
+
+        private async void CheckForAccountsAsync()
+        {
+            UpdateSignInState(false);
+            
+            try
+            {
+                // Check if we already have an account in the cache
+                IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
+                AuthenticationResult authResult = await
+                    App.PCA.AcquireTokenSilentAsync(
+                        App.Scopes,
+                        GetAccountByPolicy(
+                            accounts,
+                            App.PolicySignUpSignIn),
+                        App.Authority,
+                        false);
+                UpdateUserInfo(authResult);
+                UpdateSignInState(true);
+            }
+            catch (Exception ex)
+            {
+                // Doesn't matter, we go to interactive mode
+                UpdateSignInState(false);
+            }
         }
 
         async void OnSignInSignOut(object sender, EventArgs e)
@@ -50,7 +77,7 @@ namespace UserDetailsClient.Core
             }
         }
 
-        private IAccount GetAccountByPolicy(IEnumerable<IAccount> accounts, string policy)
+       private IAccount GetAccountByPolicy(IEnumerable<IAccount> accounts, string policy)
         {
             foreach (var account in accounts)
             {
@@ -152,7 +179,7 @@ namespace UserDetailsClient.Core
             }
         }
 
-        void UpdateSignInState(bool isSignedIn)
+       private void UpdateSignInState(bool isSignedIn)
         {
             btnSignInSignOut.Text = isSignedIn ? "Sign out" : "Sign in";
             btnEditProfile.IsVisible = isSignedIn;
