@@ -162,14 +162,14 @@ foreach (var user in App.PCA.Users)
 
 The platform specific projects require only a couple of extra lines to accommodate for individual platform differences.
 
-UserDetailsClient.Droid requires one two extra lines in the `MainActivity.cs` file.
+UserDetailsClient.Droid requires two extra lines in the `MainActivity.cs` file.
 In `OnActivityResult`, we need to add
 
 ```csharp
 AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
 
 ```
-That line ensures that the control goes back to MSAL once the interactive portion of the authentication flow ended.
+That line ensures that control goes back to MSAL once the interactive portion of the authentication flow ended.
 
 In `OnCreate`, we need to add the following assignment:
 ```csharp
