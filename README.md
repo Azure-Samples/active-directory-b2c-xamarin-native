@@ -79,7 +79,7 @@ Your native application registration should include the following information:
  <array>
   <dict>
     <key>CFBundleURLName</key>
-    <string>IfmDriverServices</string>
+    <string>active-directory-b2c-xamarin-native</string>
     <key>CFBundleURLSchemes</key>
     <array>
       <string>msal[APPLICATIONID]</string>
