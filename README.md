@@ -76,10 +76,18 @@ Your native application registration should include the following information:
  1. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
  1. In the URL types, section, add an entry for the authorization schema used in your redirectUri.
  ```xml
- <key>CFBundleURLSchemes</key>
  <array>
-  <string>msal[APPLICATIONID]</string>
- </array>
+  <dict>
+    <key>CFBundleURLName</key>
+    <string>IfmDriverServices</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>msal[APPLICATIONID]</string>
+    </array>
+    <key>CFBundleTypeRole</key>
+    <string>None</string>
+  </dict>
+</array>
  ```
  where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
  
