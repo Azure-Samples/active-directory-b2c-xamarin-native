@@ -7,7 +7,7 @@ namespace UserDetailsClient.Core
 {
     public class App : Application
     {
-        public static PublicClientApplication PCA = null;
+        public static IPublicClientApplication PCA = null;
 
         // Azure AD B2C Coordinates
         public static string Tenant = "fabrikamb2c.onmicrosoft.com";
@@ -25,13 +25,15 @@ namespace UserDetailsClient.Core
         public static string AuthorityEditProfile = $"{AuthorityBase}{PolicyEditProfile}";
         public static string AuthorityPasswordReset = $"{AuthorityBase}{PolicyResetPassword}";
 
-        public static UIParent UiParent { get; set; }
+        public static object ParentWindow { get; set; }
 
         public App()
         {
             // default redirectURI; each platform specific project will have to override it with its own
-            PCA = new PublicClientApplication(ClientID, Authority);
-            PCA.RedirectUri = $"msal{ClientID}://auth";
+            PCA = PublicClientApplicationBuilder.Create(ClientID)
+                .WithRedirectUri($"msal{ClientID}://auth")
+                .WithB2CAuthorityHostInfo(AzureADB2CHostname, Tenant)
+                .Build();
 
             MainPage = new NavigationPage(new MainPage());
         }
