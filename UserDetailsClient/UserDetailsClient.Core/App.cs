@@ -19,12 +19,7 @@ namespace UserDetailsClient.Core
 
         public static string[] Scopes = { "https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read" };
         public static string ApiEndpoint = "https://fabrikamb2chello.azurewebsites.net/hello";
-
-        public static string AuthorityBase = $"https://{AzureADB2CHostname}/tfp/{Tenant}/";
-        public static string Authority = $"{AuthorityBase}{PolicySignUpSignIn}";
-        public static string AuthorityEditProfile = $"{AuthorityBase}{PolicyEditProfile}";
-        public static string AuthorityPasswordReset = $"{AuthorityBase}{PolicyResetPassword}";
-
+        
         public static object ParentWindow { get; set; }
 
         public App()
