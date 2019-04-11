@@ -30,7 +30,7 @@ namespace UserDetailsClient.iOS
             LoadApplication(new App());
 
             // Default system browser
-            App.UiParent = new UIParent();
+            App.ParentActivityOrWindow = null;
 
             return base.FinishedLaunching(app, options);
         }

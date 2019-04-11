@@ -23,7 +23,11 @@ namespace UserDetailsClient.Core
             {
                 if (btnSignInSignOut.Text == "Sign in")
                 {
-                    AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn), App.UiParent);
+                    AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
+                        .WithAccount(GetAccountByPolicy(accounts, App.PolicySignUpSignIn))
+                        .WithParentActivityOrWindow(App.ParentActivityOrWindow)
+                        .ExecuteAsync();
+
                     UpdateUserInfo(ar);
                     UpdateSignInState(true);
                 }
@@ -91,7 +95,10 @@ namespace UserDetailsClient.Core
             try
             {
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
-                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn), App.Authority, false);
+                AuthenticationResult ar = await App.PCA.AcquireTokenSilent(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn))
+                    .WithB2CAuthority(App.Authority)
+                   .ExecuteAsync() 
+                   ;
                 string token = ar.AccessToken;
 
                 // Get data from API
@@ -127,7 +134,12 @@ namespace UserDetailsClient.Core
                 // KNOWN ISSUE:
                 // User will get prompted 
                 // to pick an IdP again.
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetAccountByPolicy(accounts, App.PolicyEditProfile), UIBehavior.NoPrompt, string.Empty, null, App.AuthorityEditProfile, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
+                    .WithAccount(GetAccountByPolicy(accounts, App.PolicyEditProfile))
+                    .WithPrompt(Prompt.NoPrompt)
+                    .WithAuthority(App.AuthorityEditProfile)
+                    .WithParentActivityOrWindow(App.ParentActivityOrWindow)
+                    .ExecuteAsync();
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
@@ -141,7 +153,11 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, (IAccount)null, UIBehavior.NoPrompt, string.Empty, null, App.AuthorityPasswordReset, App.UiParent);
+                AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
+                    .WithPrompt(Prompt.NoPrompt)
+                    .WithAuthority(App.AuthorityEditProfile)
+                    .WithParentActivityOrWindow(App.AuthorityPasswordReset)
+                    .ExecuteAsync();
                 UpdateUserInfo(ar);
             }
             catch (Exception ex)
