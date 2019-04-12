@@ -163,9 +163,10 @@ The `UiParent` is used in Android to tie the authentication flow to the current 
 
 The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.               
 ```csharp
-foreach (var user in App.PCA.Users)
+var accounts = await App.GetAccountsAsync();
+foreach (var account in accounts.ToArray())
 {
-    App.PCA.Remove(user);
+    App.PCA.Remove(account);
 }
 ```
 
