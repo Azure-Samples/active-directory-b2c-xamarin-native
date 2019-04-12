@@ -155,7 +155,11 @@ If the attempt to obtain a token silently fails, we do nothing and display the s
 When the sign in button is pressed, we execute the same logic - but using a method that shows interactive UX:
 
 ```csharp
-AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
+AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
+                                        .WithAccount(GetUserByPolicy(App.PCA.Users, 
+                                                                     App.PolicySignUpSignIn)
+                                        .WithParentActivityOrWindow(App.ParentActivityOrWindow)
+                                        .ExecuteAsync();
 ```
 The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). Scopes should be input in the following format: `https://{tenant_name}.onmicrosoft.com/{app_name}/{scope_value}` 
 
@@ -185,7 +189,7 @@ That line ensures that control goes back to MSAL once the interactive portion of
 
 In `OnCreate`, we need to add the following assignment:
 ```csharp
-App.UiParent = new UIParent(Xamarin.Forms.Forms.Context as Activity); 
+App.ParentActivityOrWindow = this; // This activity
 ```
 That code ensures that the authentication flows occur in the context of the current activity.  
 
