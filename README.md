@@ -136,7 +136,10 @@ protected override async void OnAppearing()
     // Check to see if we have a User in the cache already.
     try
     {
-        AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
+        AuthenticationResult ar = await App.PCA.AcquireTokenSilent(App.Scopes,
+                                                                   GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn))
+                                            .WithAuthority(App.Authority)
+                                            .ExecuteAsync();
         UpdateUserInfo(ar);
         UpdateSignInState(true);
     }
