@@ -138,7 +138,7 @@ protected override async void OnAppearing()
     {
         AuthenticationResult ar = await App.PCA.AcquireTokenSilent(App.Scopes,
                                                                    GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn))
-                                            .WithAuthority(App.Authority)
+                                            .WithAuthority(App.PolicySignUpSignIn)
                                             .ExecuteAsync();
         UpdateUserInfo(ar);
         UpdateSignInState(true);
