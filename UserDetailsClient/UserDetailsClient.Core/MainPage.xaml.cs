@@ -97,8 +97,7 @@ namespace UserDetailsClient.Core
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
                 AuthenticationResult ar = await App.PCA.AcquireTokenSilent(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn))
                     .WithB2CAuthority(App.Authority)
-                   .ExecuteAsync() 
-                   ;
+                   .ExecuteAsync();
                 string token = ar.AccessToken;
 
                 // Get data from API
@@ -155,8 +154,8 @@ namespace UserDetailsClient.Core
             {
                 AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
                     .WithPrompt(Prompt.NoPrompt)
-                    .WithAuthority(App.AuthorityEditProfile)
-                    .WithParentActivityOrWindow(App.AuthorityPasswordReset)
+                    .WithAuthority(App.AuthorityPasswordReset)
+                    .WithParentActivityOrWindow(App.ParentActivityOrWindow)
                     .ExecuteAsync();
                 UpdateUserInfo(ar);
             }
