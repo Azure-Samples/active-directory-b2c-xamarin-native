@@ -20,5 +20,6 @@ namespace UserDetailsClient.Core.Features.LogOn
         public static string Authority = $"{AuthorityBase}{PolicySignUpSignIn}";
         public static string AuthorityEditProfile = $"{AuthorityBase}{PolicyEditProfile}";
         public static string AuthorityPasswordReset = $"{AuthorityBase}{PolicyResetPassword}";
+        public static string IOSKeyChainGroup = "com.microsoft.adalcache";
     }
 }
