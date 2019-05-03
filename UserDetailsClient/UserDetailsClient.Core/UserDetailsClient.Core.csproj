@@ -10,4 +10,8 @@
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.530893" />
     <PackageReference Include="Microsoft.Identity.Client" Version="3.0.8" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Framework\" />
+  </ItemGroup>
 </Project>

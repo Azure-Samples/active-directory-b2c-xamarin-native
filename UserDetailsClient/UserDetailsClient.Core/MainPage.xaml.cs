@@ -5,12 +5,20 @@ using System.Net.Http;
 using System.Text;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json.Linq;
+using UserDetailsClient.Core.Features.LogOn;
 using Xamarin.Forms;
 
 namespace UserDetailsClient.Core
 {
     public partial class MainPage : ContentPage
     {
+        protected static readonly IAuthenticationService AuthenticationService;
+
+        static MainPage()
+        {
+            AuthenticationService = DependencyService.Get<IAuthenticationService>();
+        }
+
         public MainPage()
         {
             InitializeComponent();
@@ -18,27 +26,17 @@ namespace UserDetailsClient.Core
 
         async void OnSignInSignOut(object sender, EventArgs e)
         {
-            IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
                 if (btnSignInSignOut.Text == "Sign in")
                 {
-                    AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
-                        .WithAccount(GetAccountByPolicy(accounts, App.PolicySignUpSignIn))
-                        .WithParentActivityOrWindow(App.ParentActivityOrWindow)
-                        .ExecuteAsync();
-
-                    UpdateUserInfo(ar);
-                    UpdateSignInState(true);
+                    var userContext = await AuthenticationService.SignIn();
+                    UpdateSignInState(userContext);
+                    UpdateUserInfo(userContext);
                 }
                 else
                 {
-                    while (accounts.Any())
-                    {
-                        await App.PCA.RemoveAsync(accounts.FirstOrDefault());
-                        accounts = await App.PCA.GetAccountsAsync();
-                    }
-                    UpdateSignInState(false);
+                    await AuthenticationService.SignOut();
                 }
             }
             catch (Exception ex)
@@ -53,52 +51,13 @@ namespace UserDetailsClient.Core
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
         }
-
-        private IAccount GetAccountByPolicy(IEnumerable<IAccount> accounts, string policy)
-        {
-            foreach (var account in accounts)
-            {
-                string userIdentifier = account.HomeAccountId.ObjectId.Split('.')[0];
-                if (userIdentifier.EndsWith(policy.ToLower())) return account;
-            }
-
-            return null;
-        }
-
-        private string Base64UrlDecode(string s)
-        {
-            s = s.Replace('-', '+').Replace('_', '/');
-            s = s.PadRight(s.Length + (4 - s.Length % 4) % 4, '=');
-            var byteArray = Convert.FromBase64String(s);
-            var decoded = Encoding.UTF8.GetString(byteArray, 0, byteArray.Count());
-            return decoded;
-        }
-
-        public void UpdateUserInfo(AuthenticationResult ar)
-        {
-            JObject user = ParseIdToken(ar.IdToken);
-            lblName.Text = user["name"]?.ToString();
-            lblId.Text = user["oid"]?.ToString();
-        }
-
-        JObject ParseIdToken(string idToken)
-        {
-            // Get the piece with actual user info
-            idToken = idToken.Split('.')[1];
-            idToken = Base64UrlDecode(idToken);
-            return JObject.Parse(idToken);
-        }
-
         async void OnCallApi(object sender, EventArgs e)
         {
-            IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
-                AuthenticationResult ar = await App.PCA.AcquireTokenSilent(App.Scopes, GetAccountByPolicy(accounts, App.PolicySignUpSignIn))
-                    .WithB2CAuthority(App.Authority)
-                   .ExecuteAsync();
-                string token = ar.AccessToken;
+                var token = await AuthenticationService.AcquireToken();
+
 
                 // Get data from API
                 HttpClient client = new HttpClient();
@@ -127,19 +86,11 @@ namespace UserDetailsClient.Core
 
         async void OnEditProfile(object sender, EventArgs e)
         {
-            IEnumerable<IAccount> accounts = await App.PCA.GetAccountsAsync();
             try
             {
-                // KNOWN ISSUE:
-                // User will get prompted 
-                // to pick an IdP again.
-                AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
-                    .WithAccount(GetAccountByPolicy(accounts, App.PolicyEditProfile))
-                    .WithPrompt(Prompt.NoPrompt)
-                    .WithAuthority(App.AuthorityEditProfile)
-                    .WithParentActivityOrWindow(App.ParentActivityOrWindow)
-                    .ExecuteAsync();
-                UpdateUserInfo(ar);
+                var userContext = await AuthenticationService.EditProfile();
+                UpdateSignInState(userContext);
+                UpdateUserInfo(userContext);
             }
             catch (Exception ex)
             {
@@ -152,12 +103,9 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
-                    .WithPrompt(Prompt.NoPrompt)
-                    .WithAuthority(App.AuthorityPasswordReset)
-                    .WithParentActivityOrWindow(App.ParentActivityOrWindow)
-                    .ExecuteAsync();
-                UpdateUserInfo(ar);
+                var userContext = await AuthenticationService.ResetPassword();
+                UpdateSignInState(userContext);
+                UpdateUserInfo(userContext);
             }
             catch (Exception ex)
             {
@@ -167,13 +115,19 @@ namespace UserDetailsClient.Core
             }
         }
 
-        void UpdateSignInState(bool isSignedIn)
+        void UpdateSignInState(UserContext userContext)
         {
+            var isSignedIn = userContext.IsLoggedOn;
             btnSignInSignOut.Text = isSignedIn ? "Sign out" : "Sign in";
             btnEditProfile.IsVisible = isSignedIn;
             btnCallApi.IsVisible = isSignedIn;
             slUser.IsVisible = isSignedIn;
             lblApi.Text = "";
+        }
+        public void UpdateUserInfo(UserContext userContext)
+        {
+            lblName.Text = userContext.Name;
+            lblId.Text = userContext.UserIdentifier;
         }
     }
 }
