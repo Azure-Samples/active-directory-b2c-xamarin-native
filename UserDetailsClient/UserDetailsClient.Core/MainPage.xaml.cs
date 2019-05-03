@@ -99,6 +99,21 @@ namespace UserDetailsClient.Core
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
         }
+        async void OnResetPassword(object sender, EventArgs e)
+        {
+            try
+            {
+                var userContext = await AuthenticationService.ResetPassword();
+                UpdateSignInState(userContext);
+                UpdateUserInfo(userContext);
+            }
+            catch (Exception ex)
+            {
+                // Alert if any exception excludig user cancelling sign-in dialog
+                if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
+                    await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
+            }
+        }
         async void OnPasswordReset()
         {
             try
