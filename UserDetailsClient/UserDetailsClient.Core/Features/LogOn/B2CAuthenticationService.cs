@@ -19,6 +19,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             // default redirectURI; each platform specific project will have to override it with its own
             PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientID)
                 .WithB2CAuthority(B2CConstants.Authority)
+                .WithIosKeychainSecurityGroup("com.microsoft.adalcache")
                 .WithRedirectUri($"msal{B2CConstants.ClientID}://auth")
                 .Build();
         }
