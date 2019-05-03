@@ -18,6 +18,12 @@ namespace UserDetailsClient.Core
         {
             InitializeComponent();
 
+            /* Grab an instance of the IAuthenticationService using DependencyService.
+             * 
+             * NOTE: this will give us an instance of B2CAuthenticationService 
+             * because we registered that class in App.xaml.cs
+             * 
+             * */
             authenticationService = DependencyService.Get<IAuthenticationService>();
         }
 
