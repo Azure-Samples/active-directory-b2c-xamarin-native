@@ -33,7 +33,9 @@ namespace UserDetailsClient.Core
                 }
                 else
                 {
-                    await authenticationService.SignOut();
+                    var userContext = await authenticationService.SignOut();
+                    UpdateSignInState(userContext);
+                    UpdateUserInfo(userContext);
                 }
             }
             catch (Exception ex)

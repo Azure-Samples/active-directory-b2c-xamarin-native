@@ -77,15 +77,18 @@ namespace UserDetailsClient.Core.Features.LogOn
             return newContext;
         }
 
-        public async Task SignOut()
+        public async Task<UserContext> SignOut()
         {
+
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
             while (accounts.Any())
             {
                 await PCA.RemoveAsync(accounts.FirstOrDefault());
                 accounts = await PCA.GetAccountsAsync();
             }
-            //UpdateSignInState(false);
+            var signedOutContext = new UserContext();
+            signedOutContext.IsLoggedOn = false;
+            return signedOutContext;
         }
 
         private IAccount GetAccountByPolicy(IEnumerable<IAccount> accounts, string policy)
@@ -116,6 +119,23 @@ namespace UserDetailsClient.Core.Features.LogOn
             JObject user = ParseIdToken(ar.IdToken);
             newContext.Name = user["name"]?.ToString();
             newContext.UserIdentifier = user["oid"]?.ToString();
+
+            newContext.GivenName = user["given_name"]?.ToString();
+            newContext.FamilyName = user["family_name"]?.ToString();
+
+            newContext.StreetAddress = user["streetAddress"]?.ToString();
+            newContext.City = user["city"]?.ToString();
+            newContext.Province = user["state"]?.ToString();
+            newContext.PostalCode = user["postalCode"]?.ToString();
+            newContext.Country = user["country"]?.ToString();
+
+            newContext.JobTitle = user["jobTitle"]?.ToString();
+
+            var emails = user["emails"] as JArray;
+            if(emails != null)
+            {
+                newContext.EMailAddress = emails[0].ToString();
+            }
             newContext.IsLoggedOn = true;
 
             return newContext;

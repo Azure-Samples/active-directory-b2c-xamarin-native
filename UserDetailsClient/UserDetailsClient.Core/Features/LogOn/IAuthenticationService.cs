@@ -9,7 +9,7 @@ namespace UserDetailsClient.Core.Features.LogOn
     {
         void SetParent(object parent);
         Task<UserContext> SignIn();
-        Task SignOut();
+        Task<UserContext> SignOut();
         Task<UserContext> EditProfile();
         Task<UserContext> ResetPassword();
         Task<string> AcquireToken();
