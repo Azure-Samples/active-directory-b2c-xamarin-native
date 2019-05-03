@@ -22,12 +22,6 @@ namespace UserDetailsClient.Core
             MainPage = new NavigationPage(new MainPage());
         }
 
-        //public static Page GetMainPage()
-        //{
-        //    var rootPage = new MasterPage();
-        //    return rootPage;
-        //}
-
         protected override void OnStart ()
 		{
         }
