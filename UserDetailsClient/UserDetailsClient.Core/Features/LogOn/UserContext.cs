@@ -18,5 +18,6 @@ namespace UserDetailsClient.Core.Features.LogOn
         public string JobTitle { get; internal set; }
         public string StreetAddress { get; internal set; }
         public string City { get; internal set; }
+        public string AccessToken { get; internal set; }
     }
 }

@@ -8,10 +8,9 @@ namespace UserDetailsClient.Core.Features.LogOn
     public interface IAuthenticationService
     {
         void SetParent(object parent);
-        Task<UserContext> SignIn();
-        Task<UserContext> SignOut();
-        Task<UserContext> EditProfile();
-        Task<UserContext> ResetPassword();
-        Task<string> AcquireToken();
+        Task<UserContext> SignInAsync();
+        Task<UserContext> SignOutAsync();
+        Task<UserContext> EditProfileAsync();
+        Task<UserContext> ResetPasswordAsync();
     }
 }

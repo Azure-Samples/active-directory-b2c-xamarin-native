@@ -24,17 +24,34 @@ namespace UserDetailsClient.Core.Features.LogOn
                 .Build();
         }
 
-        public async Task<string> AcquireToken()
+        public async Task<UserContext> SignInAsync()
+        {
+            UserContext newContext = null;
+            try
+            {
+                // acquire token silent
+                newContext = await AcquireToken();
+            }
+            catch (MsalUiRequiredException ex)
+            {
+                // acquire token interactive
+                newContext = await SignInInteractively();
+            }
+            return newContext;
+        }
+
+        private async Task<UserContext> AcquireToken()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
             AuthenticationResult ar = await PCA.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                 .WithB2CAuthority(B2CConstants.Authority)
                .ExecuteAsync();
-            string token = ar.AccessToken;
-            return token;
+
+            var newContext = UpdateUserInfo(ar);
+            return newContext;
         }
 
-        public async Task<UserContext> ResetPassword()
+        public async Task<UserContext> ResetPasswordAsync()
         {
             AuthenticationResult ar = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithPrompt(Prompt.NoPrompt)
@@ -47,7 +64,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             return userContext;
         }
 
-        public async Task<UserContext> EditProfile()
+        public async Task<UserContext> EditProfileAsync()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
             // KNOWN ISSUE:
@@ -65,7 +82,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             return userContext;
         }
 
-        public async Task<UserContext> SignIn()
+        private async Task<UserContext> SignInInteractively()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
             AuthenticationResult ar = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
@@ -77,7 +94,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             return newContext;
         }
 
-        public async Task<UserContext> SignOut()
+        public async Task<UserContext> SignOutAsync()
         {
 
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
@@ -117,6 +134,8 @@ namespace UserDetailsClient.Core.Features.LogOn
             var newContext = new UserContext();
             newContext.IsLoggedOn = false;
             JObject user = ParseIdToken(ar.IdToken);
+
+            newContext.AccessToken = ar.AccessToken;
             newContext.Name = user["name"]?.ToString();
             newContext.UserIdentifier = user["oid"]?.ToString();
 
@@ -132,7 +151,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             newContext.JobTitle = user["jobTitle"]?.ToString();
 
             var emails = user["emails"] as JArray;
-            if(emails != null)
+            if (emails != null)
             {
                 newContext.EMailAddress = emails[0].ToString();
             }

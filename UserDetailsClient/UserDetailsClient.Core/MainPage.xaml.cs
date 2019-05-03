@@ -33,13 +33,13 @@ namespace UserDetailsClient.Core
             {
                 if (btnSignInSignOut.Text == "Sign in")
                 {
-                    var userContext = await authenticationService.SignIn();
+                    var userContext = await authenticationService.SignInAsync();
                     UpdateSignInState(userContext);
                     UpdateUserInfo(userContext);
                 }
                 else
                 {
-                    var userContext = await authenticationService.SignOut();
+                    var userContext = await authenticationService.SignOutAsync();
                     UpdateSignInState(userContext);
                     UpdateUserInfo(userContext);
                 }
@@ -61,8 +61,8 @@ namespace UserDetailsClient.Core
             try
             {
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
-                var token = await authenticationService.AcquireToken();
-
+                var userContext = await authenticationService.SignInAsync();
+                var token = userContext.AccessToken;
 
                 // Get data from API
                 HttpClient client = new HttpClient();
@@ -93,7 +93,7 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                var userContext = await authenticationService.EditProfile();
+                var userContext = await authenticationService.EditProfileAsync();
                 UpdateSignInState(userContext);
                 UpdateUserInfo(userContext);
             }
@@ -108,7 +108,7 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                var userContext = await authenticationService.ResetPassword();
+                var userContext = await authenticationService.ResetPasswordAsync();
                 UpdateSignInState(userContext);
                 UpdateUserInfo(userContext);
             }
@@ -123,7 +123,7 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                var userContext = await authenticationService.ResetPassword();
+                var userContext = await authenticationService.ResetPasswordAsync();
                 UpdateSignInState(userContext);
                 UpdateUserInfo(userContext);
             }
