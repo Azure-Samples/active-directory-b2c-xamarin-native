@@ -7,7 +7,8 @@ using UIKit;
 using Microsoft.Identity.Client;
 
 using UserDetailsClient.Core;
-
+using Xamarin.Forms;
+using UserDetailsClient.Core.Features.LogOn;
 
 namespace UserDetailsClient.iOS
 {
@@ -29,8 +30,9 @@ namespace UserDetailsClient.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            var authenticationService = DependencyService.Get<IAuthenticationService>();
             // Default system browser
-            App.ParentActivityOrWindow = null;
+            authenticationService.SetParent(null);
 
             return base.FinishedLaunching(app, options);
         }

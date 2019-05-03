@@ -10,6 +10,8 @@ using Android.OS;
 
 using UserDetailsClient.Core;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms;
+using UserDetailsClient.Core.Features.LogOn;
 
 namespace UserDetailsClient.Droid
 {
@@ -26,7 +28,10 @@ namespace UserDetailsClient.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             LoadApplication(new App());
-            App.ParentActivityOrWindow = this;
+
+            var authenticationService = DependencyService.Get<IAuthenticationService>();
+            // Default system browser
+            authenticationService.SetParent(this);
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
