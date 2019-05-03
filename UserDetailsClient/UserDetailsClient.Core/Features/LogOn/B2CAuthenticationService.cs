@@ -10,11 +10,11 @@ namespace UserDetailsClient.Core.Features.LogOn
 {
     public class B2CAuthenticationService : IAuthenticationService
     {
-        public static IPublicClientApplication PCA = null;
+        public IPublicClientApplication PCA = null;
 
-        public static object ParentActivityOrWindow { get; set; }
+        public object ParentActivityOrWindow { get; set; }
 
-        static B2CAuthenticationService()
+        public B2CAuthenticationService()
         {
             // default redirectURI; each platform specific project will have to override it with its own
             PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientID)
@@ -22,10 +22,6 @@ namespace UserDetailsClient.Core.Features.LogOn
                 .WithIosKeychainSecurityGroup("com.microsoft.adalcache")
                 .WithRedirectUri($"msal{B2CConstants.ClientID}://auth")
                 .Build();
-        }
-
-        public B2CAuthenticationService()
-        {
         }
 
         public async Task<string> AcquireToken()
