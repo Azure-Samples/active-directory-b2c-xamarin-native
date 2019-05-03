@@ -1,11 +1,13 @@
 ﻿using System;
-using Microsoft.Identity.Client;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using Microsoft.Identity.Client;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace UserDetailsClient.Core
 {
-    public class App : Application
+	public partial class App : Application
     {
         public static IPublicClientApplication PCA = null;
 
@@ -27,8 +29,10 @@ namespace UserDetailsClient.Core
 
         public static object ParentActivityOrWindow { get; set; }
 
-        public App()
-        {
+        public App ()
+		{
+            InitializeComponent();
+
             // default redirectURI; each platform specific project will have to override it with its own
             App.PCA = PublicClientApplicationBuilder.Create(ClientID)
                 .WithB2CAuthority(Authority)
@@ -38,19 +42,24 @@ namespace UserDetailsClient.Core
             MainPage = new NavigationPage(new MainPage());
         }
 
-        protected override void OnStart()
-        {
-            // Handle when your app starts
+        //public static Page GetMainPage()
+        //{
+        //    var rootPage = new MasterPage();
+        //    return rootPage;
+        //}
+
+        protected override void OnStart ()
+		{
         }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+		protected override void OnSleep ()
+		{
+			// Handle when your app sleeps
+		}
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
-    }
+		protected override void OnResume ()
+		{
+			// Handle when your app resumes
+		}
+	}
 }
