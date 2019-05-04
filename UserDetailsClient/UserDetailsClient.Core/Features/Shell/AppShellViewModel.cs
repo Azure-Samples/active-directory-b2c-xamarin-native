@@ -12,13 +12,12 @@ namespace UserDetailsClient.Core.Features.Shell
     public class AppShellViewModel : BaseViewModel
     {
         public const string AuthenticationRequestedMessage = nameof(AuthenticationRequestedMessage);
-        public bool IsNoOneLoggedIn => !AuthenticationService.IsAnyOneLoggedOn;
 
         public string AuthenticationActionText
         {
             get
             {
-                return IsNoOneLoggedIn ? "Log Off" : "Log On";
+                return AuthenticationService.IsAnyOneLoggedOn ? "Log Off" : "Log On";
             }
         }
 
@@ -27,7 +26,7 @@ namespace UserDetailsClient.Core.Features.Shell
 
         public AppShellViewModel()
         {
-            MessagingCenter.Subscribe<AppShellViewModel>(this, HomeViewModel.AuthenticationActionCompletedMessage, _ => LoadCommand.Execute(null));
+            MessagingCenter.Subscribe<HomeViewModel>(this, HomeViewModel.AuthenticationActionCompletedMessage, _ => LoadCommand.Execute(null));
         }
 
         private async Task LoadDataAsync()
