@@ -31,6 +31,7 @@ namespace UserDetailsClient.Core.Features.Shell
 
         private async Task LoadDataAsync()
         {
+            // force the UI to update the data bindings
             this.SetAndRaisePropertyChanged("AuthenticationActionText");
         }
 

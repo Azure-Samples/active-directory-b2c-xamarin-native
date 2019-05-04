@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<framework:BaseContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="UserDetailsClient.Core.Features.UserProfile.UserProfilePage"
+    
+    xmlns:framework="clr-namespace:UserDetailsClient.Core.Framework"
+    xmlns:local="clr-namespace:UserDetailsClient.Core.Features.UserProfile"
+    
+    x:DataType="local:UserProfileViewModel"
+    x:TypeArguments="local:UserProfileViewModel"
+    >
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="User Profile Page"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding UserIdentifier}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding EMailAddress}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</framework:BaseContentPage>

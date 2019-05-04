@@ -6,6 +6,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:home="clr-namespace:UserDetailsClient.Core.Features.Home"
+    xmlns:userprofile="clr-namespace:UserDetailsClient.Core.Features.UserProfile"
+    xmlns:settings="clr-namespace:UserDetailsClient.Core.Features.Settings"
     
     Title="User Details"  
     Route="userdetails"
@@ -43,6 +45,20 @@
         Route="home"
         >
         <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+    </ShellItem>
+
+    <ShellItem
+        Title="User Profile"
+        Route="userprofile"
+        >
+        <ShellContent ContentTemplate="{DataTemplate userprofile:UserProfilePage}" />
+    </ShellItem>
+
+    <ShellItem
+        Title="Settings"
+        Route="settings"
+        >
+        <ShellContent ContentTemplate="{DataTemplate settings:SettingsPage}" />
     </ShellItem>
 
     <MenuItem

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using UserDetailsClient.Core.Features.Settings;
 using UserDetailsClient.Core.Features.Shell;
 using UserDetailsClient.Core.Framework;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace UserDetailsClient.Core.Features.Home
@@ -29,12 +31,17 @@ namespace UserDetailsClient.Core.Features.Home
         {
             await base.InitializeAsync();
 
-            // auto-login the user
-            await OnAuthenticationActionRequested(false);
+            var forceAutomaticLogin = Preferences.Get(nameof(DefaultSettings.ForceAutomaticLogin), DefaultSettings.ForceAutomaticLogin);
+            if (forceAutomaticLogin)
+            {
+                // auto-login the user
+                await OnAuthenticationActionRequested(false);
+            }
         }
 
         private async Task LoadDataAsync()
         {
+            // force the UI to update the data bindings
             this.SetAndRaisePropertyChanged("UserIdentifier");
         }
 
