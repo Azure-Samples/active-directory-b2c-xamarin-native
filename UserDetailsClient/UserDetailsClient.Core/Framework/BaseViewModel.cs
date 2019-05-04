@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using UserDetailsClient.Core.Features.Logging;
 using UserDetailsClient.Core.Features.LogOn;
 using Xamarin.Forms;
 
@@ -12,10 +13,12 @@ namespace UserDetailsClient.Core.Framework
     public class BaseViewModel : INotifyPropertyChanged
     {
         protected static readonly IAuthenticationService AuthenticationService;
+        protected static readonly ILoggingService LoggingService;
 
         static BaseViewModel()
         {
             AuthenticationService = DependencyService.Get<IAuthenticationService>();
+            LoggingService = DependencyService.Get<ILoggingService>();
         }
 
         private bool isBusy;

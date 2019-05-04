@@ -6,6 +6,7 @@ using Microsoft.Identity.Client;
 using UserDetailsClient.Core.Features.LogOn;
 using UserDetailsClient.Core.Features.Shell;
 using System.Threading.Tasks;
+using UserDetailsClient.Core.Features.Logging;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace UserDetailsClient.Core
@@ -102,6 +103,9 @@ namespace UserDetailsClient.Core
              * 
              * */
             DependencyService.Register<B2CAuthenticationService>();
+
+
+            DependencyService.Register<DebugLoggingService>();
         }
     }
 }

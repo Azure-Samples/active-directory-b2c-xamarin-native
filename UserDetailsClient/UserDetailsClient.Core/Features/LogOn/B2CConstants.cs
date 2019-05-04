@@ -13,6 +13,8 @@ namespace UserDetailsClient.Core.Features.LogOn
         public static string PolicySignUpSignIn = "b2c_1_susi";
         public static string PolicyEditProfile = "b2c_1_edit_profile";
         public static string PolicyResetPassword = "b2c_1_reset";
+        public static string PolicyRPOC = "b2c_1_LogOnMobile";
+        public static string ROPC_APP_ID = "90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6";
 
         public static string[] Scopes = { "https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read" };
 
