@@ -12,14 +12,8 @@ namespace UserDetailsClient.Core.Framework
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        protected static readonly IAuthenticationService AuthenticationService;
-        protected static readonly ILoggingService LoggingService;
-
-        static BaseViewModel()
-        {
-            AuthenticationService = DependencyService.Get<IAuthenticationService>();
-            LoggingService = DependencyService.Get<ILoggingService>();
-        }
+        protected readonly IAuthenticationService AuthenticationService;
+        protected readonly ILoggingService LoggingService;
 
         private bool isBusy;
         public bool IsBusy
@@ -30,6 +24,8 @@ namespace UserDetailsClient.Core.Framework
 
         public BaseViewModel()
         {
+            AuthenticationService = DependencyService.Get<IAuthenticationService>();
+            LoggingService = DependencyService.Get<ILoggingService>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
