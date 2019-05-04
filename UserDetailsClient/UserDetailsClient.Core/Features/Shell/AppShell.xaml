@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell 
+    x:Name="theShell"
+    x:Class="UserDetailsClient.Core.Features.Shell.AppShell"
+    
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:home="clr-namespace:UserDetailsClient.Core.Features.Home"
+    
+    Title="User Details"  
+    Route="userdetails"
+    RouteHost="www.microsoft.com" 
+    RouteScheme="http"
+    >
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ShellForegroundColor" Value="White" />
+                <Setter Property="Shell.ShellTitleColor" Value="White" />
+                <Setter Property="Shell.ShellDisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.ShellUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.ShellTabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ShellTabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.ShellTabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.ShellTabBarTitleColor" Value="White" />
+            </Style>
+            <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                <Label Text="{Binding Title}" Margin="16" FontSize="Medium" />
+            </ContentView>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <ShellItem
+        Title="Home"
+        Route="home"
+        >
+        <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+    </ShellItem>
+
+    <MenuItem
+        BindingContext="{x:Reference theShell}"
+        Command="{Binding BindingContext.AuthenticationActionCommand}"
+        Text="{Binding BindingContext.AuthenticationActionText}"
+        />
+
+</Shell>

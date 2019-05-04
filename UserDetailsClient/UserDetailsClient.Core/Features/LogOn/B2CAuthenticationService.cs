@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace UserDetailsClient.Core.Features.LogOn
 {
@@ -13,6 +14,10 @@ namespace UserDetailsClient.Core.Features.LogOn
         public IPublicClientApplication PCA = null;
 
         public object ParentActivityOrWindow { get; set; }
+
+        private UserContext userContext;
+
+        public bool IsAnyOneLoggedOn => userContext != null && userContext.IsLoggedOn;
 
         public B2CAuthenticationService()
         {
@@ -37,6 +42,8 @@ namespace UserDetailsClient.Core.Features.LogOn
                 // acquire token interactive
                 newContext = await SignInInteractively();
             }
+            userContext = newContext;
+
             return newContext;
         }
 
@@ -61,6 +68,7 @@ namespace UserDetailsClient.Core.Features.LogOn
 
             var userContext = UpdateUserInfo(ar);
 
+            this.userContext = userContext;
             return userContext;
         }
 
@@ -79,6 +87,7 @@ namespace UserDetailsClient.Core.Features.LogOn
 
             var userContext = UpdateUserInfo(ar);
 
+            this.userContext = userContext;
             return userContext;
         }
 
@@ -91,6 +100,7 @@ namespace UserDetailsClient.Core.Features.LogOn
                 .ExecuteAsync();
 
             var newContext = UpdateUserInfo(ar);
+
             return newContext;
         }
 
@@ -105,6 +115,8 @@ namespace UserDetailsClient.Core.Features.LogOn
             }
             var signedOutContext = new UserContext();
             signedOutContext.IsLoggedOn = false;
+
+            this.userContext = signedOutContext;
             return signedOutContext;
         }
 
@@ -171,6 +183,11 @@ namespace UserDetailsClient.Core.Features.LogOn
         public void SetParent(object parent)
         {
             ParentActivityOrWindow = parent;
+        }
+
+        public UserContext GetCurrentContext()
+        {
+            return this.userContext;
         }
     }
 }

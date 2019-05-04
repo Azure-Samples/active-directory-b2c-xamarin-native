@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<framework:BaseContentPage  
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="UserDetailsClient.Core.Features.Home.HomePage"
+    
+    xmlns:framework="clr-namespace:UserDetailsClient.Core.Framework"
+    xmlns:local="clr-namespace:UserDetailsClient.Core.Features.Home"
+    
+    x:DataType="local:HomeViewModel"
+    x:TypeArguments="local:HomeViewModel"
+    >
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="HOME PAGE"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding UserIdentifier}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</framework:BaseContentPage>
