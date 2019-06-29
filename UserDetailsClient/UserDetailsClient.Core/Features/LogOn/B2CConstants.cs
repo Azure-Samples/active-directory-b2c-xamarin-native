@@ -8,7 +8,7 @@ namespace UserDetailsClient.Core.Features.LogOn
     {
         // Azure AD B2C Coordinates
         public static string Tenant = "fabrikamb2c.onmicrosoft.com";
-        public static string AzureADB2CHostname = "login.microsoftonline.com";
+        public static string AzureADB2CHostname = "fabrikamb2c.b2clogin.com";
         public static string ClientID = "90c0fe63-bcf2-44d5-8fb7-b8bbc0b29dc6";
         public static string PolicySignUpSignIn = "b2c_1_susi";
         public static string PolicyEditProfile = "b2c_1_edit_profile";
