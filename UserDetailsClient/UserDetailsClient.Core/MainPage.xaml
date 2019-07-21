@@ -8,16 +8,24 @@
     ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="MSAL Xamarin Forms Sample" VerticalOptions="Start" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+            <Label Text="MSAL Xamarin Forms B2C Sample" VerticalOptions="Start" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
             <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
             <StackLayout x:Name="slUser" IsVisible="False" Padding="5,10">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Name " FontAttributes="Bold" />
-                    <Label x:Name="lblName" />
+                    <Label Text="Name: " FontAttributes="Bold" />
+                    <Label FontAttributes="Bold" x:Name="lblName" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Id " FontAttributes="Bold" />
-                    <Label x:Name="lblId" />
+                    <Label Text="City: " FontAttributes="Bold" />
+                    <Label FontAttributes="Bold" x:Name="lblCity" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Job Title: " FontAttributes="Bold" />
+                    <Label FontAttributes="Bold" x:Name="lblJobTitle" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Email: " FontAttributes="Bold" />
+                    <Label FontAttributes="Bold" x:Name="lblEmail" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="API Payload " FontAttributes="Bold" />

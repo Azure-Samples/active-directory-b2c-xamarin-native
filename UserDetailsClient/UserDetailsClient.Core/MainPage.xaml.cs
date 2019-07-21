@@ -147,7 +147,9 @@ namespace UserDetailsClient.Core
         public void UpdateUserInfo(UserContext userContext)
         {
             lblName.Text = userContext.Name;
-            lblId.Text = userContext.UserIdentifier;
+            lblCity.Text = userContext.City;
+            lblJobTitle.Text = userContext.JobTitle;
+            lblEmail.Text = userContext.EmailAddress;
         }
     }
 }

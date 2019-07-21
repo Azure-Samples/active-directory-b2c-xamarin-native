@@ -153,7 +153,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             var emails = user["emails"] as JArray;
             if (emails != null)
             {
-                newContext.EMailAddress = emails[0].ToString();
+                newContext.EmailAddress = emails[0].ToString();
             }
             newContext.IsLoggedOn = true;
 
