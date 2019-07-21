@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserDetailsClient.Core.Features.LogOn
+﻿namespace UserDetailsClient.Core.Features.LogOn
 {
     public static class B2CConstants
     {
