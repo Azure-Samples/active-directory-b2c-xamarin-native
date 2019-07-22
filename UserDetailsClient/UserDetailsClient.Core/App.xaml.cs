@@ -1,8 +1,5 @@
-﻿using System;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Microsoft.Identity.Client;
 using UserDetailsClient.Core.Features.LogOn;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]

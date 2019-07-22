@@ -1,15 +1,10 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Microsoft.Identity.Client;
 using Android.Content;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 using UserDetailsClient.Core;
-using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using UserDetailsClient.Core.Features.LogOn;
 
