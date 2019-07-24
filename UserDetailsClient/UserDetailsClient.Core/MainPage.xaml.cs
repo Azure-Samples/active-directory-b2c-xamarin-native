@@ -143,6 +143,7 @@ namespace UserDetailsClient.Core
         public void UpdateUserInfo(UserContext userContext)
         {
             lblName.Text = userContext.Name;
+            lblJob.Text = userContext.JobTitle;
             lblCity.Text = userContext.City;
         }
     }
