@@ -13,6 +13,7 @@ urlFragment: integrate-azure-ad-b2c-xamarin-forms
 
 
 # Integrate Azure AD B2C into a Xamarin forms app using MSAL
+
 This is a simple Xamarin Forms app showcasing how to use MSAL to authenticate users via Azure Active Directory B2C, and access an ASP.NET Web API with the resulting token. For more information on Azure B2C, see the [Azure AD B2C documentation](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-overview).
 
 ## How To Run This Sample
