@@ -67,9 +67,7 @@ namespace UserDetailsClient.Core.Features.LogOn
         public async Task<UserContext> EditProfileAsync()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-            // KNOWN ISSUE:
-            // User will get prompted 
-            // to pick an IdP again.
+
             AuthenticationResult ar = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile))
                 .WithPrompt(Prompt.NoPrompt)
@@ -153,7 +151,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             var emails = user["emails"] as JArray;
             if (emails != null)
             {
-                newContext.EMailAddress = emails[0].ToString();
+                newContext.EmailAddress = emails[0].ToString();
             }
             newContext.IsLoggedOn = true;
 

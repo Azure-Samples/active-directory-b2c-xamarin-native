@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using Microsoft.Identity.Client;
-using Newtonsoft.Json.Linq;
 using UserDetailsClient.Core.Features.LogOn;
 using Xamarin.Forms;
 
@@ -147,7 +143,7 @@ namespace UserDetailsClient.Core
         public void UpdateUserInfo(UserContext userContext)
         {
             lblName.Text = userContext.Name;
-            lblId.Text = userContext.UserIdentifier;
+            lblCity.Text = userContext.City;
         }
     }
 }

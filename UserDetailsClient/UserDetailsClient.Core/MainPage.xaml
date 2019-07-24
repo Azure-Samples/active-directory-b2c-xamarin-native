@@ -12,12 +12,12 @@
             <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
             <StackLayout x:Name="slUser" IsVisible="False" Padding="5,10">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Name " FontAttributes="Bold" />
-                    <Label x:Name="lblName" />
+                    <Label Text="Name: " FontAttributes="Bold" />
+                    <Label FontAttributes="Bold" x:Name="lblName" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Id " FontAttributes="Bold" />
-                    <Label x:Name="lblId" />
+                    <Label Text="City: " FontAttributes="Bold" />
+                    <Label FontAttributes="Bold" x:Name="lblCity" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="API Payload " FontAttributes="Bold" />
