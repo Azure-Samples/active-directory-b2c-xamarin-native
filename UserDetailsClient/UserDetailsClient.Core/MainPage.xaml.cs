@@ -47,7 +47,7 @@ namespace UserDetailsClient.Core
                 // reset and not any other error.
                 if (ex.Message.Contains("AADB2C90118"))
                     OnPasswordReset();
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user cancelling sign-in dialog
                 else if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
@@ -143,6 +143,7 @@ namespace UserDetailsClient.Core
         public void UpdateUserInfo(UserContext userContext)
         {
             lblName.Text = userContext.Name;
+            lblJob.Text = userContext.JobTitle;
             lblCity.Text = userContext.City;
         }
     }

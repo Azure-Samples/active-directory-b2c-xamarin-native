@@ -18,7 +18,7 @@ namespace UserDetailsClient.Core.Features.LogOn
         {
             // default redirectURI; each platform specific project will have to override it with its own
             PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientID)
-                .WithB2CAuthority(B2CConstants.Authority)
+                .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
                 .WithIosKeychainSecurityGroup(B2CConstants.IOSKeyChainGroup)
                 .WithRedirectUri($"msal{B2CConstants.ClientID}://auth")
                 .Build();
@@ -43,23 +43,23 @@ namespace UserDetailsClient.Core.Features.LogOn
         private async Task<UserContext> AcquireToken()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-            AuthenticationResult ar = await PCA.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
-                .WithB2CAuthority(B2CConstants.Authority)
+            AuthenticationResult authResult = await PCA.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
+               .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
                .ExecuteAsync();
 
-            var newContext = UpdateUserInfo(ar);
+            var newContext = UpdateUserInfo(authResult);
             return newContext;
         }
 
         public async Task<UserContext> ResetPasswordAsync()
         {
-            AuthenticationResult ar = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
+            AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithPrompt(Prompt.NoPrompt)
                 .WithAuthority(B2CConstants.AuthorityPasswordReset)
                 .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
-            var userContext = UpdateUserInfo(ar);
+            var userContext = UpdateUserInfo(authResult);
 
             return userContext;
         }
@@ -68,14 +68,14 @@ namespace UserDetailsClient.Core.Features.LogOn
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
 
-            AuthenticationResult ar = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
+            AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile))
                 .WithPrompt(Prompt.NoPrompt)
                 .WithAuthority(B2CConstants.AuthorityEditProfile)
                 .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
-            var userContext = UpdateUserInfo(ar);
+            var userContext = UpdateUserInfo(authResult);
 
             return userContext;
         }
@@ -83,12 +83,13 @@ namespace UserDetailsClient.Core.Features.LogOn
         private async Task<UserContext> SignInInteractively()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-            AuthenticationResult ar = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
+
+            AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                 .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
-            var newContext = UpdateUserInfo(ar);
+            var newContext = UpdateUserInfo(authResult);
             return newContext;
         }
 
@@ -116,7 +117,6 @@ namespace UserDetailsClient.Core.Features.LogOn
 
             return null;
         }
-
 
         private string Base64UrlDecode(string s)
         {
