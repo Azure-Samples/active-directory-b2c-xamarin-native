@@ -19,7 +19,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientId)
                 .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
                 .WithIosKeychainSecurityGroup(B2CConstants.IosKeyChainGroup)
-                .WithRedirectUri($"msal{B2CConstants.ClientId}://auth")
+                .WithRedirectUri(B2CConstants.RedirectUri)
                 .Build();
         }
 
