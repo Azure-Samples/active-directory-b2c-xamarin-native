@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Identity.Client;
+using System.Threading.Tasks;
 
 namespace UserDetailsClient.Core.Features.LogOn
 {

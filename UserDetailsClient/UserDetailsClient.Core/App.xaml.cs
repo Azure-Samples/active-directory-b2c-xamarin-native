@@ -7,8 +7,7 @@ namespace UserDetailsClient.Core
 {
 	public partial class App : Application
     {
-
-        public static string ApiEndpoint = "https://fabrikamb2chello.azurewebsites.net/hello";
+        public static string ApiEndpoint = "http://localhost:5000/hello";
 
         public App ()
 		{

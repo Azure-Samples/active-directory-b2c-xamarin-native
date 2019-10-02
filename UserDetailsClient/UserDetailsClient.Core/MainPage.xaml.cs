@@ -48,10 +48,11 @@ namespace UserDetailsClient.Core
                 if (ex.Message.Contains("AADB2C90118"))
                     OnPasswordReset();
                 // Alert if any exception excluding user cancelling sign-in dialog
-                else if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
+                else if ((ex as MsalException)?.ErrorCode != "authentication_canceled")
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
         }
+
         async void OnCallApi(object sender, EventArgs e)
         {
             try
@@ -96,10 +97,11 @@ namespace UserDetailsClient.Core
             catch (Exception ex)
             {
                 // Alert if any exception excludig user cancelling sign-in dialog
-                if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
+                if ((ex as MsalException)?.ErrorCode != "authentication_canceled")
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
         }
+
         async void OnResetPassword(object sender, EventArgs e)
         {
             try
@@ -115,6 +117,7 @@ namespace UserDetailsClient.Core
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
         }
+
         async void OnPasswordReset()
         {
             try
@@ -140,6 +143,7 @@ namespace UserDetailsClient.Core
             slUser.IsVisible = isSignedIn;
             lblApi.Text = "";
         }
+
         public void UpdateUserInfo(UserContext userContext)
         {
             lblName.Text = userContext.Name;

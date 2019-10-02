@@ -16,11 +16,10 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public B2CAuthenticationService()
         {
-            // default redirectURI; each platform specific project will have to override it with its own
-            PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientID)
+            PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientId)
                 .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
-                .WithIosKeychainSecurityGroup(B2CConstants.IOSKeyChainGroup)
-                .WithRedirectUri($"msal{B2CConstants.ClientID}://auth")
+                .WithIosKeychainSecurityGroup(B2CConstants.IosKeyChainGroup)
+                .WithRedirectUri($"msal{B2CConstants.ClientId}://auth")
                 .Build();
         }
 
@@ -30,7 +29,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             try
             {
                 // acquire token silent
-                newContext = await AcquireToken();
+                newContext = await AcquireTokenSilent();
             }
             catch (MsalUiRequiredException ex)
             {
@@ -40,10 +39,11 @@ namespace UserDetailsClient.Core.Features.LogOn
             return newContext;
         }
 
-        private async Task<UserContext> AcquireToken()
+        private async Task<UserContext> AcquireTokenSilent()
         {
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-            AuthenticationResult authResult = await PCA.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
+            AuthenticationResult authResult =
+                await PCA.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
                .ExecuteAsync();
 
@@ -66,10 +66,7 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> EditProfileAsync()
         {
-            IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-
             AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
-                .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile))
                 .WithPrompt(Prompt.NoPrompt)
                 .WithAuthority(B2CConstants.AuthorityEditProfile)
                 .WithParentActivityOrWindow(ParentActivityOrWindow)
@@ -82,10 +79,7 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         private async Task<UserContext> SignInInteractively()
         {
-            IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-
             AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
-                .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                 .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
@@ -95,13 +89,14 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> SignOutAsync()
         {
-
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
+
             while (accounts.Any())
             {
                 await PCA.RemoveAsync(accounts.FirstOrDefault());
                 accounts = await PCA.GetAccountsAsync();
             }
+
             var signedOutContext = new UserContext();
             signedOutContext.IsLoggedOn = false;
             return signedOutContext;
