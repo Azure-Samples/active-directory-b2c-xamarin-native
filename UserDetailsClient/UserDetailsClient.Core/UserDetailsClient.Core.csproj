@@ -8,7 +8,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.530893" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.5.1" />
   </ItemGroup>
 
   <ItemGroup>
