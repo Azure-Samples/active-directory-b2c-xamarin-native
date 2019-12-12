@@ -84,6 +84,7 @@ Your native application registration should include the following information:
 #### [OPTIONAL] Step 6a: Configure the iOS project with your app's return URI
  1. Open the `UserDetailsClient.iOS\info.plist` file in a text editor (opening it in Visual Studio won't work for this step as you need to edit the text)
  1. In the URL types, section, add an entry for the authorization schema used in your redirectUri.
+
  ```xml
  <array>
   <dict>
@@ -91,32 +92,32 @@ Your native application registration should include the following information:
     <string>active-directory-b2c-xamarin-native</string>
     <key>CFBundleURLSchemes</key>
     <array>
-      <string>msal[APPLICATIONID]</string>
+      <string>msal[ClientID]</string>
     </array>
     <key>CFBundleTypeRole</key>
     <string>None</string>
   </dict>
 </array>
  ```
- where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
+ 
+ where `[ClientID]` is the identifier you copied in step 2. Save the file.
  
 #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
- 1. Open the `UserDetailsClient.Droid\Properties\AndroidManifest.xml`
- 1. Add or modify the `<application>` element as in the following
- ```xml
-<application>
-  <activity android:name="microsoft.identity.client.BrowserTabActivity">
-    <intent-filter>
-      <action android:name="android.intent.action.VIEW" />
-      <category android:name="android.intent.category.DEFAULT" />
-      <category android:name="android.intent.category.BROWSABLE" />
-      <data android:scheme="msal[APPLICATIONID]" android:host="auth" />
-    </intent-filter>
-  </activity>
-</application>
- ```
- where `[APPLICATIONID]` is the identifier you copied in step 2. Save the file.
+1. Open the `UserDetailsClient.Droid\MsalActivity.cs` file.
+1. Replace `[ClientID]` with the identifier you copied in step 2.
+1. Save the file.
+
+```csharp
+  [Activity]
+  [IntentFilter(new[] { Intent.ActionView },
+        Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
+        DataHost = "auth",
+        DataScheme = "msal[ClientID]")]
+  public class MsalActivity : BrowserTabActivity
+  {
+  }
+```
 
 ### Step 7: Run the sample
 
@@ -128,8 +129,8 @@ Your native application registration should include the following information:
 
 #### Running in an Android Emulator
 
-If you have issues with the Android emulator, please refer to [this document](https://github.com/Azure-Samples/active-directory-general-docs/blob/master/AndroidEmulator.md) for instructions on how to ensure that your emulator supports the features required by MSAL. 
- 
+If you have issues with the Android emulator, please refer to [this document](https://github.com/Azure-Samples/active-directory-general-docs/blob/master/AndroidEmulator.md) for instructions on how to ensure that your emulator supports the features required by MSAL.
+
 ## About the code
 
 The structure of the solution is straightforward. All the application logic and UX reside in UserDetailsClient (portable).
@@ -169,11 +170,13 @@ AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
                                         .WithParentActivityOrWindow(App.ParentActivityOrWindow)
                                         .ExecuteAsync();
 ```
-The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). Scopes should be input in the following format: `https://{tenant_name}.onmicrosoft.com/{app_name}/{scope_value}` 
+
+The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). Scopes should be input in the following format: `https://{tenant_name}.onmicrosoft.com/{app_name}/{scope_value}`
 
 The `.WithParentActivityOrWindow()` is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. For more platform specific considerations, please see below.
 
-The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.               
+The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.
+
 ```csharp
 var accounts = await App.GetAccountsAsync();
 foreach (var account in accounts.ToArray())
@@ -196,16 +199,18 @@ AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestC
 That line ensures that control goes back to MSAL once the interactive portion of the authentication flow ended.
 
 In `OnCreate`, we need to add the following assignment:
+
 ```csharp
 App.ParentActivityOrWindow = this; // This activity
 ```
-That code ensures that the authentication flows occur in the context of the current activity.  
 
+That code ensures that the authentication flows occur in the context of the current activity.  
 
 ### iOS specific considerations
 
 UserDetailsClient.iOS only requires one extra line, in AppDelegate.cs.
-You need to ensure that the OpenUrl handler looks as ine snippet below:
+You need to ensure that the OpenUrl handler looks as the snippet below:
+
 ```csharp
 public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
 {
@@ -213,6 +218,7 @@ public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
     return true;
 }
 ```
+
 Once again, this logic is meant to ensure that once the interactive portion of the authentication flow is concluded, the flow goes back to MSAL.
 
 In order to make the token cache work and have the `AcquireTokenSilentAsync` work multiple steps must be followed :
@@ -220,7 +226,6 @@ In order to make the token cache work and have the `AcquireTokenSilentAsync` wor
 1. Enable Keychain access in your `Entitlements.plist` file and specify in the **Keychain Groups** your bundle identifier.
 1. In your project options, on iOS **Bundle Signing view**, select your `Entitlements.plist` file for the Custom Entitlements field.
 1. When signing a certificate, make sure XCode uses the same Apple Id. 
-
 
 ## More information
 
