@@ -26,10 +26,6 @@ namespace UserDetailsClient.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
-            var authenticationService = DependencyService.Get<IAuthenticationService>();
-            // Default system browser
-            authenticationService.SetParent(null);
-
             return base.FinishedLaunching(app, options);
         }
 
