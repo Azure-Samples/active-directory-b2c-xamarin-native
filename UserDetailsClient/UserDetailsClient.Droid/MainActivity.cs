@@ -7,6 +7,7 @@ using Android.OS;
 using UserDetailsClient.Core;
 using Xamarin.Forms;
 using UserDetailsClient.Core.Features.LogOn;
+using Plugin.CurrentActivity;
 
 namespace UserDetailsClient.Droid
 {
@@ -15,18 +16,17 @@ namespace UserDetailsClient.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            CrossCurrentActivity.Current.Init(this, bundle);
+            DependencyService.Register<IParentWindowLocatorService, AndroidParentWindowLocatorService>();
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.Init(this, bundle);
 
             LoadApplication(new App());
-
-            var authenticationService = DependencyService.Get<IAuthenticationService>();
-            // Default system browser
-            authenticationService.SetParent(this);
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
