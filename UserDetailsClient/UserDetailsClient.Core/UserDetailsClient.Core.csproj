@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Framework\**" />
+    <EmbeddedResource Remove="Framework\**" />
+    <None Remove="Framework\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.530893" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Framework\" />
   </ItemGroup>
 </Project>

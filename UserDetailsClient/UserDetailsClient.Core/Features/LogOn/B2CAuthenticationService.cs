@@ -5,34 +5,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace UserDetailsClient.Core.Features.LogOn
 {
-    public class B2CAuthenticationService : IAuthenticationService
+    /// <summary>
+    ///  For simplicity, we'll have this as a singleton. 
+    /// </summary>
+    public class B2CAuthenticationService
     {
-        public IPublicClientApplication PCA = null;
+        private readonly IPublicClientApplication _pca;
 
-        public object ParentActivityOrWindow { get; set; }
 
-        public B2CAuthenticationService()
+        private static readonly Lazy<B2CAuthenticationService> lazy = new Lazy<B2CAuthenticationService>
+           (() => new B2CAuthenticationService());
+
+        public static B2CAuthenticationService Instance { get { return lazy.Value; } }
+
+
+        private B2CAuthenticationService()
         {
+
             // default redirectURI; each platform specific project will have to override it with its own
-            PCA = PublicClientApplicationBuilder.Create(B2CConstants.ClientID)
+            var builder = PublicClientApplicationBuilder.Create(B2CConstants.ClientID)
                 .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
                 .WithIosKeychainSecurityGroup(B2CConstants.IOSKeyChainGroup)
-                .WithRedirectUri($"msal{B2CConstants.ClientID}://auth")
-                .Build();
+                .WithRedirectUri($"msal{B2CConstants.ClientID}://auth");
+
+            // Android implementation is based on https://github.com/jamesmontemagno/CurrentActivityPlugin
+            // iOS implementation would require to expose the current ViewControler - not currently implemented as it is not required
+            // UWP does not require this
+            var windowLocatorService = DependencyService.Get<IParentWindowLocatorService>();
+
+            if (windowLocatorService != null)
+            {
+                builder = builder.WithParentActivityOrWindow(() => windowLocatorService?.GetCurrentParentWindow());
+            }
+
+            _pca = builder.Build();
         }
 
         public async Task<UserContext> SignInAsync()
         {
-            UserContext newContext = null;
+            UserContext newContext;
             try
             {
                 // acquire token silent
                 newContext = await AcquireToken();
             }
-            catch (MsalUiRequiredException ex)
+            catch (MsalUiRequiredException)
             {
                 // acquire token interactive
                 newContext = await SignInInteractively();
@@ -42,8 +63,8 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         private async Task<UserContext> AcquireToken()
         {
-            IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
-            AuthenticationResult authResult = await PCA.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
+            IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
+            AuthenticationResult authResult = await _pca.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
                .ExecuteAsync();
 
@@ -53,10 +74,9 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> ResetPasswordAsync()
         {
-            AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
+            AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithPrompt(Prompt.NoPrompt)
                 .WithAuthority(B2CConstants.AuthorityPasswordReset)
-                .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
             var userContext = UpdateUserInfo(authResult);
@@ -66,13 +86,12 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> EditProfileAsync()
         {
-            IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
+            IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
 
-            AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
+            AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile))
                 .WithPrompt(Prompt.NoPrompt)
                 .WithAuthority(B2CConstants.AuthorityEditProfile)
-                .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
             var userContext = UpdateUserInfo(authResult);
@@ -82,11 +101,10 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         private async Task<UserContext> SignInInteractively()
         {
-            IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
+            IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
 
-            AuthenticationResult authResult = await PCA.AcquireTokenInteractive(B2CConstants.Scopes)
+            AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
-                .WithParentActivityOrWindow(ParentActivityOrWindow)
                 .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
@@ -96,11 +114,11 @@ namespace UserDetailsClient.Core.Features.LogOn
         public async Task<UserContext> SignOutAsync()
         {
 
-            IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
+            IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
             while (accounts.Any())
             {
-                await PCA.RemoveAsync(accounts.FirstOrDefault());
-                accounts = await PCA.GetAccountsAsync();
+                await _pca.RemoveAsync(accounts.FirstOrDefault());
+                accounts = await _pca.GetAccountsAsync();
             }
             var signedOutContext = new UserContext();
             signedOutContext.IsLoggedOn = false;
@@ -164,11 +182,6 @@ namespace UserDetailsClient.Core.Features.LogOn
             idToken = idToken.Split('.')[1];
             idToken = Base64UrlDecode(idToken);
             return JObject.Parse(idToken);
-        }
-
-        public void SetParent(object parent)
-        {
-            ParentActivityOrWindow = parent;
         }
     }
 }

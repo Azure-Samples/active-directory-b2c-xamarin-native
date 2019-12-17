@@ -8,19 +8,9 @@ namespace UserDetailsClient.Core
 {
     public partial class MainPage : ContentPage
     {
-        protected readonly IAuthenticationService authenticationService;
-
         public MainPage()
         {
             InitializeComponent();
-
-            /* Grab an instance of the IAuthenticationService using DependencyService.
-             * 
-             * NOTE: this will give us an instance of B2CAuthenticationService 
-             * because we registered that class in App.xaml.cs
-             * 
-             * */
-            authenticationService = DependencyService.Get<IAuthenticationService>();
         }
 
         async void OnSignInSignOut(object sender, EventArgs e)
@@ -29,13 +19,13 @@ namespace UserDetailsClient.Core
             {
                 if (btnSignInSignOut.Text == "Sign in")
                 {
-                    var userContext = await authenticationService.SignInAsync();
+                    var userContext = await B2CAuthenticationService.Instance.SignInAsync();
                     UpdateSignInState(userContext);
                     UpdateUserInfo(userContext);
                 }
                 else
                 {
-                    var userContext = await authenticationService.SignOutAsync();
+                    var userContext = await B2CAuthenticationService.Instance.SignOutAsync();
                     UpdateSignInState(userContext);
                     UpdateUserInfo(userContext);
                 }
@@ -47,7 +37,7 @@ namespace UserDetailsClient.Core
                 // reset and not any other error.
                 if (ex.Message.Contains("AADB2C90118"))
                     OnPasswordReset();
-                // Alert if any exception excluding user cancelling sign-in dialog
+                // Alert if any exception excluding user canceling sign-in dialog
                 else if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
@@ -57,7 +47,7 @@ namespace UserDetailsClient.Core
             try
             {
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
-                var userContext = await authenticationService.SignInAsync();
+                var userContext = await B2CAuthenticationService.Instance.SignInAsync();
                 var token = userContext.AccessToken;
 
                 // Get data from API
@@ -89,13 +79,13 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                var userContext = await authenticationService.EditProfileAsync();
+                var userContext = await B2CAuthenticationService.Instance.EditProfileAsync();
                 UpdateSignInState(userContext);
                 UpdateUserInfo(userContext);
             }
             catch (Exception ex)
             {
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user canceling sign-in dialog
                 if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
@@ -104,13 +94,13 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                var userContext = await authenticationService.ResetPasswordAsync();
+                var userContext = await B2CAuthenticationService.Instance.ResetPasswordAsync();
                 UpdateSignInState(userContext);
                 UpdateUserInfo(userContext);
             }
             catch (Exception ex)
             {
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user canceling sign-in dialog
                 if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
@@ -119,13 +109,13 @@ namespace UserDetailsClient.Core
         {
             try
             {
-                var userContext = await authenticationService.ResetPasswordAsync();
+                var userContext = await B2CAuthenticationService.Instance.ResetPasswordAsync();
                 UpdateSignInState(userContext);
                 UpdateUserInfo(userContext);
             }
             catch (Exception ex)
             {
-                // Alert if any exception excludig user cancelling sign-in dialog
+                // Alert if any exception excluding user canceling sign-in dialog
                 if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
                     await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
