@@ -61,7 +61,7 @@ namespace UserDetailsClient.Core
                     lblApi.Text = $"Response from API {App.ApiEndpoint} | {responseString}";
                 }
                 else
-                {
+                 {
                     lblApi.Text = $"Error calling API {App.ApiEndpoint} | {responseString}";
                 }
             }
