@@ -65,8 +65,7 @@ namespace UserDetailsClient.Core.Features.LogOn
         {
             IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
             AuthenticationResult authResult = await _pca.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
-               .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
-               
+               .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)   
                .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
@@ -106,7 +105,6 @@ namespace UserDetailsClient.Core.Features.LogOn
 
             AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
-                //.WithUseEmbeddedWebView(true)
                 .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
