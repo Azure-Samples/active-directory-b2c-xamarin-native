@@ -51,7 +51,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             try
             {
                 // acquire token silent
-                newContext = await AcquireToken();
+                newContext = await AcquireTokenSilent();
             }
             catch (MsalUiRequiredException)
             {
@@ -61,11 +61,12 @@ namespace UserDetailsClient.Core.Features.LogOn
             return newContext;
         }
 
-        private async Task<UserContext> AcquireToken()
+        private async Task<UserContext> AcquireTokenSilent()
         {
             IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
             AuthenticationResult authResult = await _pca.AcquireTokenSilent(B2CConstants.Scopes, GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                .WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)
+               
                .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
@@ -105,6 +106,7 @@ namespace UserDetailsClient.Core.Features.LogOn
 
             AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
                 .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
+                //.WithUseEmbeddedWebView(true)
                 .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
