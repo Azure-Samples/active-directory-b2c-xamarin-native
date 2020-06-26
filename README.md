@@ -164,16 +164,18 @@ If the attempt to obtain a token silently fails, we do nothing and display the s
 When the sign in button is pressed, we execute the same logic - but using a method that shows interactive UX:
 
 ```csharp
+var windowLocatorService = DependencyService.Get<IParentWindowLocatorService>();
+
 AuthenticationResult ar = await App.PCA.AcquireTokenInteractive(App.Scopes)
                                         .WithAccount(GetUserByPolicy(App.PCA.Users, 
                                                                      App.PolicySignUpSignIn)
-                                        .WithParentActivityOrWindow(App.ParentActivityOrWindow)
+                                        .WithParentActivityOrWindow(() => windowLocatorService?.GetCurrentParentWindow()))
                                         .ExecuteAsync();
 ```
 
 The `Scopes` parameter indicates the permissions the application needs to gain access to the data requested through subsequent web API call (in this sample, encapsulated in `OnCallApi`). Scopes should be input in the following format: `https://{tenant_name}.onmicrosoft.com/{app_name}/{scope_value}`
 
-The `.WithParentActivityOrWindow()` is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. For more platform specific considerations, please see below.
+The `.WithParentActivityOrWindow()` is used in Android to tie the authentication flow to the current activity, and is ignored on all other platforms. That code ensures that the authentication flows occur in the context of the current activity.
 
 The sign out logic is very simple. In this sample we have just one user, however we are demonstrating a more generic sign out logic that you can apply if you have multiple concurrent users and you want to clear up the entire cache.
 
@@ -189,7 +191,7 @@ foreach (var account in accounts.ToArray())
 
 The platform specific projects require only a couple of extra lines to accommodate for individual platform differences.
 
-UserDetailsClient.Droid requires two extra lines in the `MainActivity.cs` file.
+UserDetailsClient.Droid requires one extra line in the `MainActivity.cs` file.
 In `OnActivityResult`, we need to add
 
 ```csharp
@@ -197,14 +199,6 @@ AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestC
 
 ```
 That line ensures that control goes back to MSAL once the interactive portion of the authentication flow ended.
-
-In `OnCreate`, we need to add the following assignment:
-
-```csharp
-App.ParentActivityOrWindow = this; // This activity
-```
-
-That code ensures that the authentication flows occur in the context of the current activity.  
 
 ### iOS specific considerations
 
