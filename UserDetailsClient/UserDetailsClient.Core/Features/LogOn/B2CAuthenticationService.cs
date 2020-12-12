@@ -101,10 +101,7 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         private async Task<UserContext> SignInInteractively()
         {
-            IEnumerable<IAccount> accounts = await _pca.GetAccountsAsync();
-
             AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
-                .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn))
                 .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
