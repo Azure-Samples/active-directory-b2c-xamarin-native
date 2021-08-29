@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Identity.Client.Helper;
 
 namespace UserDetailsClient.UWP
 {
@@ -29,6 +30,7 @@ namespace UserDetailsClient.UWP
         public App()
         {
             this.InitializeComponent();
+            PCAHelper.IsUWP = true;
             this.Suspending += OnSuspending;
         }
 

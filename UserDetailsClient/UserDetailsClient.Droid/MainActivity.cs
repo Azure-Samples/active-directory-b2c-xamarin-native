@@ -8,6 +8,7 @@ using UserDetailsClient.Core;
 using Xamarin.Forms;
 using UserDetailsClient.Core.Features.LogOn;
 using Plugin.CurrentActivity;
+using Microsoft.Identity.Client.Helper;
 
 namespace UserDetailsClient.Droid
 {
@@ -25,7 +26,7 @@ namespace UserDetailsClient.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
-
+            PCAHelper.ParentWindow = this;
             LoadApplication(new App());
         }
 

@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using UserDetailsClient.Core.Features.LogOn;
+using Microsoft.Identity.Client.Helper;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace UserDetailsClient.Core
@@ -26,7 +27,7 @@ namespace UserDetailsClient.Core
              * 
              * */
             DependencyService.Register<B2CAuthenticationService>();
-
+            PCAHelper.Init(B2CConstants.ClientID, B2CConstants.Scopes);
             MainPage = new NavigationPage(new MainPage());
         }
 
