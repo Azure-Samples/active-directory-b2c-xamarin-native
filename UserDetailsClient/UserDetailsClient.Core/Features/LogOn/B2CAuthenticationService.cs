@@ -41,10 +41,11 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> ResetPasswordAsync()
         {
-            AuthenticationResult authResult = await PCAHelper.Instance.PCA.AcquireTokenInteractive(B2CConstants.Scopes)
-                .WithPrompt(Prompt.NoPrompt)
-                .WithAuthority(B2CConstants.AuthorityPasswordReset)
-                .ExecuteAsync();
+            var authResult = await PCAHelper.Instance.EnsureAuthenticatedAsync(doSilent: false, customizeInteractive: (builder) =>
+            {
+                builder.WithPrompt(Prompt.NoPrompt)
+                       .WithAuthority(B2CConstants.AuthorityPasswordReset);
+            });
 
             var userContext = UpdateUserInfo(authResult);
 
@@ -54,12 +55,13 @@ namespace UserDetailsClient.Core.Features.LogOn
         public async Task<UserContext> EditProfileAsync()
         {
             IEnumerable<IAccount> accounts = await PCAHelper.Instance.PCA.GetAccountsAsync();
+            var acct = GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile);
 
-            AuthenticationResult authResult = await PCAHelper.Instance.PCA.AcquireTokenInteractive(B2CConstants.Scopes)
-                .WithAccount(GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile))
-                .WithPrompt(Prompt.NoPrompt)
-                .WithAuthority(B2CConstants.AuthorityEditProfile)
-                .ExecuteAsync();
+            var authResult = await PCAHelper.Instance.EnsureAuthenticatedAsync(doSilent:false, account: acct, customizeInteractive: (builder) =>
+            {
+                builder.WithPrompt(Prompt.NoPrompt)
+                       .WithAuthority(B2CConstants.AuthorityEditProfile);
+             });
 
             var userContext = UpdateUserInfo(authResult);
 

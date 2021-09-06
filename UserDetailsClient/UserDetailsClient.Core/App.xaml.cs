@@ -28,6 +28,7 @@ namespace UserDetailsClient.Core
              * */
             DependencyService.Register<B2CAuthenticationService>();
             PCAHelper.Init(B2CConstants.ClientID, B2CConstants.Scopes);
+            PCAHelper.Instance.PCABuilder.WithB2CAuthority(B2CConstants.AuthoritySignInSignUp);
             MainPage = new NavigationPage(new MainPage());
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Helper;
 using UserDetailsClient.Core.Features.LogOn;
 using Xamarin.Forms;
 
@@ -47,13 +48,11 @@ namespace UserDetailsClient.Core
             try
             {
                 lblApi.Text = $"Calling API {App.ApiEndpoint}";
-                var userContext = await B2CAuthenticationService.Instance.SignInAsync();
-                var token = userContext.AccessToken;
 
                 // Get data from API
                 HttpClient client = new HttpClient();
                 HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, App.ApiEndpoint);
-                message.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                PCAHelper.Instance.AddAuthenticationBearerToken(message);
                 HttpResponseMessage response = await client.SendAsync(message);
                 string responseString = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
