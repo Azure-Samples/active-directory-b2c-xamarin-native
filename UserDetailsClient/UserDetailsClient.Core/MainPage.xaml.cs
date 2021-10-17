@@ -20,13 +20,13 @@ namespace UserDetailsClient.Core
             {
                 if (btnSignInSignOut.Text == "Sign in")
                 {
-                    var userContext = await B2CAuthenticationService.Instance.SignInAsync();
+                    var userContext = await B2CAuthenticationService.Instance.SignInAsync().ConfigureAwait(false);
                     UpdateSignInState(userContext);
                     UpdateUserInfo(userContext);
                 }
                 else
                 {
-                    var userContext = await B2CAuthenticationService.Instance.SignOutAsync();
+                    var userContext = await B2CAuthenticationService.Instance.SignOutAsync().ConfigureAwait(false);
                     UpdateSignInState(userContext);
                     UpdateUserInfo(userContext);
                 }

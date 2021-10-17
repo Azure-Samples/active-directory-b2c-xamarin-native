@@ -33,10 +33,11 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> SignInAsync()
         {
-            var accts = await PCAHelper.Instance.PCA.GetAccountsAsync();
-            var authResult = await PCAHelper.Instance.EnsureAuthenticatedAsync(account: accts.FirstOrDefault());
+            AuthenticationResult authResult = await PCAHelper.Instance.EnsureAuthenticatedAsync(
+                                                                                preferredAccount: (accounts) => GetAccountByPolicy(accounts, B2CConstants.PolicySignUpSignIn),
+                                                                                customizeSilent: (builder) => builder.WithB2CAuthority(B2CConstants.AuthoritySignInSignUp)).ConfigureAwait(false);
 
-            return UpdateUserInfo(authResult); ;
+            return UpdateUserInfo(authResult);
         }
 
         public async Task<UserContext> ResetPasswordAsync()
@@ -45,7 +46,7 @@ namespace UserDetailsClient.Core.Features.LogOn
             {
                 builder.WithPrompt(Prompt.NoPrompt)
                        .WithAuthority(B2CConstants.AuthorityPasswordReset);
-            });
+            }).ConfigureAwait(false); ;
 
             var userContext = UpdateUserInfo(authResult);
 
@@ -54,14 +55,14 @@ namespace UserDetailsClient.Core.Features.LogOn
 
         public async Task<UserContext> EditProfileAsync()
         {
-            IEnumerable<IAccount> accounts = await PCAHelper.Instance.PCA.GetAccountsAsync();
-            var acct = GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile);
-
-            var authResult = await PCAHelper.Instance.EnsureAuthenticatedAsync(doSilent:false, account: acct, customizeInteractive: (builder) =>
-            {
-                builder.WithPrompt(Prompt.NoPrompt)
-                       .WithAuthority(B2CConstants.AuthorityEditProfile);
-             });
+            var authResult = await PCAHelper.Instance.EnsureAuthenticatedAsync(
+                                                                                doSilent:false,
+                                                                                preferredAccount: (accounts) => GetAccountByPolicy(accounts, B2CConstants.PolicyEditProfile),
+                                                                                customizeInteractive: (builder) =>
+                                                                                                                    {
+                                                                                                                        builder.WithPrompt(Prompt.NoPrompt)
+                                                                                                                               .WithAuthority(B2CConstants.AuthorityEditProfile);
+                                                                                                                     }).ConfigureAwait(false);
 
             var userContext = UpdateUserInfo(authResult);
 
