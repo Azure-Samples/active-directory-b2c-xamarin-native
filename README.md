@@ -102,7 +102,7 @@ Your native application registration should include the following information:
 </array>
  ```
  
- where `Enter_the_Application_Id_Here` is the identifier you copied in step 2. Save the file.
+ where `[Enter_the_Application_Id_Here]` is the identifier you copied in step 2. Save the file.
  
 #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
