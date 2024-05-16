@@ -107,7 +107,7 @@ Your native application registration should include the following information:
 #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
 1. Open the `UserDetailsClient.Droid\MsalActivity.cs` file.
-1. Replace `Enter_the_Application_Id_Here` with the identifier you copied in step 2.
+1. Replace `[Enter_the_Application_Id_Here]` with the identifier you copied in step 2.
 1. Save the file.
 
 ```csharp
