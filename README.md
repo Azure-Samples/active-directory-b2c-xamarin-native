@@ -94,7 +94,7 @@ Your native application registration should include the following information:
     <string>active-directory-b2c-xamarin-native</string>
     <key>CFBundleURLSchemes</key>
     <array>
-      <string>msalEnter_the_Application_Id_Here</string>
+      <string>msal[Enter_the_Application_Id_Here]</string>
     </array>
     <key>CFBundleTypeRole</key>
     <string>None</string>
