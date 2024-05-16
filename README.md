@@ -115,7 +115,7 @@ Your native application registration should include the following information:
   [IntentFilter(new[] { Intent.ActionView },
         Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
         DataHost = "auth",
-        DataScheme = "msalEnter_the_Application_Id_Here")]
+        DataScheme = "msal[Enter_the_Application_Id_Here]")]
   public class MsalActivity : BrowserTabActivity
   {
   }
