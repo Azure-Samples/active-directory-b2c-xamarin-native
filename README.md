@@ -94,7 +94,7 @@ Your native application registration should include the following information:
     <string>active-directory-b2c-xamarin-native</string>
     <key>CFBundleURLSchemes</key>
     <array>
-      <string>msal[ClientID]</string>
+      <string>msalEnter_the_Application_Id_Here</string>
     </array>
     <key>CFBundleTypeRole</key>
     <string>None</string>
@@ -102,12 +102,12 @@ Your native application registration should include the following information:
 </array>
  ```
  
- where `[ClientID]` is the identifier you copied in step 2. Save the file.
+ where `Enter_the_Application_Id_Here` is the identifier you copied in step 2. Save the file.
  
 #### [OPTIONAL] Step 6b: Configure the Android project with your app's return URI
  
 1. Open the `UserDetailsClient.Droid\MsalActivity.cs` file.
-1. Replace `[ClientID]` with the identifier you copied in step 2.
+1. Replace `Enter_the_Application_Id_Here` with the identifier you copied in step 2.
 1. Save the file.
 
 ```csharp
@@ -115,7 +115,7 @@ Your native application registration should include the following information:
   [IntentFilter(new[] { Intent.ActionView },
         Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
         DataHost = "auth",
-        DataScheme = "msal[ClientID]")]
+        DataScheme = "msalEnter_the_Application_Id_Here")]
   public class MsalActivity : BrowserTabActivity
   {
   }
